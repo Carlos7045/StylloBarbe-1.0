@@ -1,36 +1,145 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# StylloBarber - Sistema de Agendamento para Barbearias
 
-## Getting Started
+Sistema SaaS frontend para gestão completa de barbearias, desenvolvido com Next.js 15.4.4 e TypeScript.
 
-First, run the development server:
+## 🚀 Tecnologias
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### Core
+- **Next.js 15.4.4** - Framework React com App Router
+- **TypeScript 5+** - Tipagem estática
+- **Tailwind CSS 4** - Estilização utilitária
+- **React 19.1.0** - Biblioteca de interface
+
+### UI e Animações
+- **Framer Motion 12+** - Animações fluidas
+- **Radix UI** - Componentes acessíveis
+- **Lucide React** - Ícones modernos
+
+### Gerenciamento de Estado
+- **Zustand 5+** - Estado global simples
+- **React Hook Form 7+** - Formulários performáticos
+- **Zod** - Validação de schemas
+- **TanStack Query 5+** - Cache de dados do servidor
+
+### Integrações
+- **Recharts** - Gráficos e visualizações
+- **API Asaas** - Processamento de pagamentos
+
+## 📁 Estrutura do Projeto
+
+```
+src/
+├── app/                          # Next.js App Router
+│   ├── (auth)/                   # Rotas de autenticação
+│   ├── (dashboard)/              # Dashboards por tipo de usuário
+│   └── agendamento/              # Agendamento público
+├── domains/                      # Domínios de negócio
+│   ├── auth/                     # Autenticação
+│   ├── appointments/             # Agendamentos
+│   ├── users/                    # Usuários
+│   ├── barbershops/              # Barbearias
+│   ├── services/                 # Serviços
+│   ├── payments/                 # Pagamentos
+│   └── notifications/            # Notificações
+└── shared/                       # Código compartilhado
+    ├── components/               # Componentes reutilizáveis
+    ├── hooks/                    # Hooks genéricos
+    ├── services/                 # Services base
+    ├── utils/                    # Utilitários
+    ├── constants/                # Constantes
+    └── types/                    # Tipos TypeScript
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🎨 Design System
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Paleta de Cores
+- **Primárias**: Tons escuros masculinos (#0f0f0f a #525252)
+- **Acentos**: Dourado premium (#d4af37, #daa520, #ffd700)
+- **Status**: Success, Warning, Error, Info
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Tipografia
+- **Fonte**: Inter (Google Fonts)
+- **Hierarquia**: H1, H2, H3, Body, Small
 
-## Learn More
+## 🛠️ Scripts Disponíveis
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Desenvolvimento
+npm run dev          # Inicia servidor de desenvolvimento
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Build e Deploy
+npm run build        # Build de produção
+npm start           # Inicia servidor de produção
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Qualidade de Código
+npm run lint        # Executa ESLint
+npm run lint:fix    # Corrige problemas do ESLint
+npm run format      # Formata código com Prettier
+npm run type-check  # Verifica tipos TypeScript
+```
 
-## Deploy on Vercel
+## 🚦 Como Executar
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Instalar dependências**
+   ```bash
+   npm install
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+2. **Executar em desenvolvimento**
+   ```bash
+   npm run dev
+   ```
+
+3. **Acessar aplicação**
+   - Abra [http://localhost:3000](http://localhost:3000)
+
+## 📋 Tipos de Usuário
+
+- **Admin SaaS**: Gestão da plataforma e assinaturas
+- **Admin Barbearia**: Gestão completa da barbearia
+- **Barbeiro**: Agenda pessoal e atendimentos
+- **Cliente**: Agendamentos e histórico
+
+## 🔧 Configurações
+
+### ESLint
+- Configuração Next.js + TypeScript
+- Regras customizadas para qualidade de código
+
+### Prettier
+- Formatação consistente
+- Single quotes, sem semicolons
+- Tab width: 2 espaços
+
+### TypeScript
+- Strict mode habilitado
+- Path mapping configurado (@/*)
+- Tipos globais definidos
+
+## 📦 Dependências Principais
+
+```json
+{
+  "next": "15.4.4",
+  "react": "19.1.0",
+  "typescript": "^5",
+  "framer-motion": "^12.0.0",
+  "zustand": "^5.0.0",
+  "react-hook-form": "^7.0.0",
+  "zod": "^4.0.17",
+  "@tanstack/react-query": "^5.0.0"
+}
+```
+
+## 🎯 Próximos Passos
+
+1. Implementar sistema de design e componentes base
+2. Desenvolver landing page institucional
+3. Criar sistema de autenticação
+4. Implementar dashboards por tipo de usuário
+5. Desenvolver módulo de agendamento
+6. Integrar sistema de pagamentos Asaas
+
+## 📄 Licença
+
+Este projeto é propriedade privada da StylloBarber.

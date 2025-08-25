@@ -1,0 +1,6 @@
+export { HeroSection } from './HeroSection'
+export { BenefitsGrid } from './BenefitsGrid'
+export { PricingTable } from './PricingTable'
+export { TestimonialsCarousel } from './TestimonialsCarousel'
+export { FAQSection } from './FAQSection'
+export { CTASection } from './CTASection'
