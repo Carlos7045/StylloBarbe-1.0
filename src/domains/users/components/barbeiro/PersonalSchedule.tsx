@@ -117,21 +117,21 @@ export function PersonalSchedule({ agendamentos, onUpdateStatus, onViewClientHis
   }
 
   return (
-    <div className="bg-gray-800 rounded-lg border border-gray-700">
-      <div className="p-6 border-b border-gray-700">
+    <div className="bg-theme-secondary rounded-lg border border-theme-primary">
+      <div className="p-6 border-b border-theme-primary">
         <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
-          <h2 className="text-xl font-semibold text-white">
+          <h2 className="text-xl font-semibold text-theme-primary">
             Minha Agenda
           </h2>
           
           <div className="flex flex-col sm:flex-row gap-3">
-            <div className="flex bg-gray-700 rounded-lg p-1">
+            <div className="flex bg-theme-tertiary rounded-lg p-1">
               <button
                 onClick={() => setVisualizacao('hoje')}
                 className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
                   visualizacao === 'hoje'
                     ? 'bg-amber-400 text-gray-900 shadow-sm'
-                    : 'text-gray-300 hover:text-white'
+                    : 'text-theme-secondary hover:text-theme-primary'
                 }`}
               >
                 Hoje
@@ -141,7 +141,7 @@ export function PersonalSchedule({ agendamentos, onUpdateStatus, onViewClientHis
                 className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
                   visualizacao === 'semana'
                     ? 'bg-amber-400 text-gray-900 shadow-sm'
-                    : 'text-gray-300 hover:text-white'
+                    : 'text-theme-secondary hover:text-theme-primary'
                 }`}
               >
                 Semana
@@ -151,7 +151,7 @@ export function PersonalSchedule({ agendamentos, onUpdateStatus, onViewClientHis
             <select
               value={filtroStatus}
               onChange={(e) => setFiltroStatus(e.target.value)}
-              className="px-3 py-2 border border-gray-600 bg-gray-700 text-white rounded-lg focus:ring-2 focus:ring-amber-400 focus:border-transparent"
+              className="px-3 py-2 border border-theme-primary bg-theme-tertiary text-theme-primary rounded-lg focus:ring-2 focus:ring-amber-400 focus:border-transparent"
             >
               <option value="todos">Todos os status</option>
               <option value="agendado">Agendado</option>
@@ -163,15 +163,15 @@ export function PersonalSchedule({ agendamentos, onUpdateStatus, onViewClientHis
         </div>
       </div>
 
-      <div className="divide-y divide-gray-700">
+      <div className="divide-y divide-theme-primary">
         {agendamentosFiltrados.length === 0 ? (
-          <div className="p-8 text-center text-gray-400">
-            <Calendar className="h-12 w-12 mx-auto mb-3 text-gray-500" />
+          <div className="p-8 text-center text-theme-tertiary">
+            <Calendar className="h-12 w-12 mx-auto mb-3 text-theme-muted" />
             <p>Nenhum agendamento encontrado para o período selecionado</p>
           </div>
         ) : (
           agruparPorHorario(agendamentosFiltrados).map((agendamento) => (
-            <div key={agendamento.id} className="p-6 hover:bg-gray-700/50 transition-colors">
+            <div key={agendamento.id} className="p-6 hover:bg-theme-hover transition-colors">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-center space-x-3 mb-3">
@@ -181,7 +181,7 @@ export function PersonalSchedule({ agendamentos, onUpdateStatus, onViewClientHis
                         {getStatusText(agendamento.status)}
                       </span>
                     </div>
-                    <div className="text-lg font-semibold text-white">
+                    <div className="text-lg font-semibold text-theme-primary">
                       {agendamento.dataHora.toLocaleTimeString('pt-BR', { 
                         hour: '2-digit', 
                         minute: '2-digit' 
@@ -197,14 +197,14 @@ export function PersonalSchedule({ agendamentos, onUpdateStatus, onViewClientHis
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2">
-                        <User className="h-4 w-4 text-gray-400" />
-                        <span className="text-sm font-medium text-white">
+                        <User className="h-4 w-4 text-theme-tertiary" />
+                        <span className="text-sm font-medium text-theme-primary">
                           {agendamento.clienteNome}
                         </span>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <Phone className="h-4 w-4 text-gray-400" />
-                        <span className="text-sm text-gray-300">
+                        <Phone className="h-4 w-4 text-theme-tertiary" />
+                        <span className="text-sm text-theme-secondary">
                           {agendamento.clienteTelefone}
                         </span>
                       </div>
@@ -212,14 +212,14 @@ export function PersonalSchedule({ agendamentos, onUpdateStatus, onViewClientHis
 
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2">
-                        <Scissors className="h-4 w-4 text-gray-400" />
-                        <span className="text-sm text-white">
+                        <Scissors className="h-4 w-4 text-theme-tertiary" />
+                        <span className="text-sm text-theme-primary">
                           {agendamento.servicoNome}
                         </span>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <Clock className="h-4 w-4 text-gray-400" />
-                        <span className="text-sm text-gray-300">
+                        <Clock className="h-4 w-4 text-theme-tertiary" />
+                        <span className="text-sm text-theme-secondary">
                           {agendamento.duracao} minutos
                         </span>
                       </div>
@@ -227,19 +227,19 @@ export function PersonalSchedule({ agendamentos, onUpdateStatus, onViewClientHis
                   </div>
 
                   <div className="mt-3 flex items-center justify-between">
-                    <div className="text-lg font-semibold text-green-400">
+                    <div className="text-lg font-semibold text-green-600 dark:text-green-400">
                       R$ {agendamento.valorTotal.toLocaleString()}
                     </div>
                     
                     {agendamento.observacoes && (
-                      <div className="text-sm text-gray-400 italic max-w-xs truncate">
+                      <div className="text-sm text-theme-tertiary italic max-w-xs truncate">
                         "{agendamento.observacoes}"
                       </div>
                     )}
                   </div>
 
                   {agendamento.ultimoAtendimento && (
-                    <div className="mt-2 text-xs text-gray-500">
+                    <div className="mt-2 text-xs text-theme-muted">
                       Último atendimento: {agendamento.ultimoAtendimento.toLocaleDateString('pt-BR')}
                     </div>
                   )}

@@ -31,23 +31,23 @@ export function BarbersOverview({ barbeiros }: BarbersOverviewProps) {
   }
 
   return (
-    <div className="bg-gray-800 rounded-lg border border-gray-700">
-      <div className="p-6 border-b border-gray-700">
-        <h2 className="text-xl font-semibold text-white">
+    <div className="bg-theme-secondary rounded-lg border border-theme-primary">
+      <div className="p-6 border-b border-theme-primary">
+        <h2 className="text-xl font-semibold text-theme-primary">
           Barbeiros - Visão Geral
         </h2>
       </div>
 
       <div className="p-6">
         {barbeiros.length === 0 ? (
-          <div className="text-center py-8 text-gray-400">
-            <User className="h-12 w-12 mx-auto mb-3 text-gray-500" />
+          <div className="text-center py-8 text-theme-tertiary">
+            <User className="h-12 w-12 mx-auto mb-3 text-theme-muted" />
             <p>Nenhum barbeiro cadastrado</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {barbeiros.map((barbeiro) => (
-              <div key={barbeiro.id} className="border border-gray-600 rounded-lg p-4 hover:border-gray-500 transition-colors bg-gray-700/50">
+              <div key={barbeiro.id} className="border border-theme-primary rounded-lg p-4 hover:border-theme-hover transition-colors bg-theme-tertiary">
                 <div className="flex items-center space-x-3 mb-4">
                   <div className="relative">
                     {barbeiro.avatar ? (
@@ -57,18 +57,18 @@ export function BarbersOverview({ barbeiros }: BarbersOverviewProps) {
                         className="w-12 h-12 rounded-full object-cover"
                       />
                     ) : (
-                      <div className="w-12 h-12 rounded-full bg-gray-600 flex items-center justify-center">
-                        <User className="h-6 w-6 text-gray-400" />
+                      <div className="w-12 h-12 rounded-full bg-theme-tertiary flex items-center justify-center">
+                        <User className="h-6 w-6 text-theme-tertiary" />
                       </div>
                     )}
-                    <div className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-gray-800 ${
+                    <div className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-theme-secondary ${
                       barbeiro.status === 'disponivel' ? 'bg-green-500' :
                       barbeiro.status === 'ocupado' ? 'bg-orange-500' : 'bg-red-500'
                     }`}></div>
                   </div>
                   
                   <div className="flex-1">
-                    <h3 className="font-medium text-white">{barbeiro.nome}</h3>
+                    <h3 className="font-medium text-theme-primary">{barbeiro.nome}</h3>
                     <span className={`inline-block px-2 py-1 text-xs font-medium rounded-full border ${getStatusColor(barbeiro.status)}`}>
                       {getStatusText(barbeiro.status)}
                     </span>
@@ -78,20 +78,20 @@ export function BarbersOverview({ barbeiros }: BarbersOverviewProps) {
                 <div className="space-y-3">
                   <div className="flex items-center justify-between text-sm">
                     <div className="flex items-center space-x-2">
-                      <Calendar className="h-4 w-4 text-gray-400" />
-                      <span className="text-gray-300">Agendamentos hoje</span>
+                      <Calendar className="h-4 w-4 text-theme-tertiary" />
+                      <span className="text-theme-secondary">Agendamentos hoje</span>
                     </div>
-                    <span className="font-medium text-white">
+                    <span className="font-medium text-theme-primary">
                       {barbeiro.agendamentosHoje}
                     </span>
                   </div>
 
                   <div className="flex items-center justify-between text-sm">
                     <div className="flex items-center space-x-2">
-                      <DollarSign className="h-4 w-4 text-gray-400" />
-                      <span className="text-gray-300">Receita hoje</span>
+                      <DollarSign className="h-4 w-4 text-theme-tertiary" />
+                      <span className="text-theme-secondary">Receita hoje</span>
                     </div>
-                    <span className="font-medium text-green-400">
+                    <span className="font-medium text-green-600 dark:text-green-400">
                       R$ {barbeiro.receitaHoje.toLocaleString()}
                     </span>
                   </div>
@@ -99,10 +99,10 @@ export function BarbersOverview({ barbeiros }: BarbersOverviewProps) {
                   {barbeiro.proximoAgendamento && (
                     <div className="flex items-center justify-between text-sm">
                       <div className="flex items-center space-x-2">
-                        <Clock className="h-4 w-4 text-gray-400" />
-                        <span className="text-gray-300">Próximo</span>
+                        <Clock className="h-4 w-4 text-theme-tertiary" />
+                        <span className="text-theme-secondary">Próximo</span>
                       </div>
-                      <span className="font-medium text-blue-400">
+                      <span className="font-medium text-blue-600 dark:text-blue-400">
                         {barbeiro.proximoAgendamento.toLocaleTimeString('pt-BR', {
                           hour: '2-digit',
                           minute: '2-digit'
@@ -112,19 +112,19 @@ export function BarbersOverview({ barbeiros }: BarbersOverviewProps) {
                   )}
 
                   {barbeiro.especialidades.length > 0 && (
-                    <div className="pt-2 border-t border-gray-600">
-                      <p className="text-xs text-gray-500 mb-1">Especialidades:</p>
+                    <div className="pt-2 border-t border-theme-primary">
+                      <p className="text-xs text-theme-muted mb-1">Especialidades:</p>
                       <div className="flex flex-wrap gap-1">
                         {barbeiro.especialidades.slice(0, 3).map((especialidade, index) => (
                           <span
                             key={index}
-                            className="inline-block px-2 py-1 text-xs bg-gray-600 text-gray-300 rounded"
+                            className="inline-block px-2 py-1 text-xs bg-theme-tertiary text-theme-secondary rounded"
                           >
                             {especialidade}
                           </span>
                         ))}
                         {barbeiro.especialidades.length > 3 && (
-                          <span className="inline-block px-2 py-1 text-xs bg-gray-600 text-gray-300 rounded">
+                          <span className="inline-block px-2 py-1 text-xs bg-theme-tertiary text-theme-secondary rounded">
                             +{barbeiro.especialidades.length - 3}
                           </span>
                         )}

@@ -1,42 +1,41 @@
 'use client'
 
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
-
 interface RevenueChartProps {
   data: Array<{
     mes: string
     receita: number
+    barbearias?: number
+    agendamentos?: number
   }>
 }
 
 export function RevenueChart({ data }: RevenueChartProps) {
+  const maxReceita = Math.max(...data.map(d => d.receita))
+  
   return (
-    <div className="w-full h-80">
-      <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis 
-            dataKey="mes" 
-            tick={{ fontSize: 12 }}
-          />
-          <YAxis 
-            tick={{ fontSize: 12 }}
-            tickFormatter={(value) => `R$ ${value.toLocaleString()}`}
-          />
-          <Tooltip 
-            formatter={(value: number) => [`R$ ${value.toLocaleString()}`, 'Receita']}
-            labelStyle={{ color: '#374151' }}
-          />
-          <Line 
-            type="monotone" 
-            dataKey="receita" 
-            stroke="#d4af37" 
-            strokeWidth={3}
-            dot={{ fill: '#d4af37', strokeWidth: 2, r: 4 }}
-            activeDot={{ r: 6, stroke: '#d4af37', strokeWidth: 2 }}
-          />
-        </LineChart>
-      </ResponsiveContainer>
+    <div className="h-80 flex items-end justify-between space-x-2 p-4">
+      {data.map((item, index) => {
+        const altura = (item.receita / maxReceita) * 100
+        
+        return (
+          <div key={index} className="flex flex-col items-center flex-1">
+            <div className="relative w-full flex items-end justify-center mb-2" style={{ height: '240px' }}>
+              <div 
+                className="bg-gradient-to-t from-green-500 to-green-400 rounded-t-sm w-full max-w-12 transition-all duration-500 hover:opacity-80 relative group"
+                style={{ height: `${altura}%` }}
+              >
+                {/* Tooltip */}
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-theme-secondary border border-theme-primary rounded px-2 py-1 text-xs text-theme-primary whitespace-nowrap">
+                  R$ {item.receita.toLocaleString()}
+                </div>
+              </div>
+            </div>
+            <span className="text-xs text-theme-secondary font-medium">
+              {item.mes}
+            </span>
+          </div>
+        )
+      })}
     </div>
   )
 }

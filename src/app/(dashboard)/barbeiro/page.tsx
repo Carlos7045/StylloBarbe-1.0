@@ -53,10 +53,10 @@ function BarbeiroDashboard() {
 
   const headerActions = (
     <>
-      {notificacoesPendentes > 0 && (
+      {notificacaosPendentes > 0 && (
         <div className="flex items-center space-x-2 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 px-3 py-2 rounded-lg border border-blue-200 dark:border-blue-800">
           <Bell className="h-4 w-4" />
-          <span className="text-sm font-medium">{notificacoesPendentes} notificações</span>
+          <span className="text-sm font-medium">{notificacaosPendentes} notificações</span>
         </div>
       )}
     </>
@@ -168,7 +168,13 @@ function BarbeiroDashboard() {
               {loadingPerformance ? (
                 <div className="h-80 bg-theme-tertiary rounded animate-pulse"></div>
               ) : (
-                <PerformanceChart data={performance} />
+                <PerformanceChart 
+                  data={performance.map(p => ({
+                    dia: p.periodo,
+                    agendamentos: p.agendamentos,
+                    receita: p.receita
+                  }))} 
+                />
               )}
             </div>
           </div>
