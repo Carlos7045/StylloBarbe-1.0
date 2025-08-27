@@ -10,6 +10,7 @@ export interface InputProps
   mask?: 'phone' | 'cpf' | 'cep'
   leftIcon?: React.ReactNode
   rightIcon?: React.ReactNode
+  icon?: React.ReactNode // Alias para leftIcon para compatibilidade
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -22,10 +23,13 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     mask, 
     leftIcon, 
     rightIcon,
+    icon,
     onChange,
     value,
     ...props 
   }, ref) => {
+    // Use icon como leftIcon se leftIcon não estiver definido
+    const finalLeftIcon = leftIcon || icon
     const [internalValue, setInternalValue] = React.useState(value || '')
 
     const applyMask = (inputValue: string): string => {
@@ -77,17 +81,17 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label 
             htmlFor={inputId}
-            className="block text-sm font-medium text-primary mb-1"
+            className="block text-sm font-medium text-theme-secondary mb-1"
           >
             {label}
-            {props.required && <span className="text-error ml-1">*</span>}
+            {props.required && <span className="text-red-500 ml-1">*</span>}
           </label>
         )}
         
         <div className="relative">
-          {leftIcon && (
-            <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-              {leftIcon}
+          {finalLeftIcon && (
+            <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-theme-tertiary">
+              {finalLeftIcon}
             </div>
           )}
           
@@ -95,10 +99,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             id={inputId}
             type={type}
             className={cn(
-              'flex h-10 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-primary file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted focus-ring transition-smooth disabled:cursor-not-allowed disabled:opacity-50',
-              leftIcon && 'pl-10',
+              'flex h-10 w-full rounded-lg border border-theme-primary bg-theme-secondary px-3 py-2 text-sm text-theme-primary file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-theme-muted focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-colors disabled:cursor-not-allowed disabled:opacity-50',
+              finalLeftIcon && 'pl-10',
               rightIcon && 'pr-10',
-              error && 'border-error focus-visible:ring-error',
+              error && 'border-red-500 focus:ring-red-500',
               className
             )}
             ref={ref}
@@ -112,20 +116,20 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           />
           
           {rightIcon && (
-            <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+            <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-theme-tertiary">
               {rightIcon}
             </div>
           )}
         </div>
         
         {error && (
-          <p id={errorId} className="mt-1 text-sm text-error">
+          <p id={errorId} className="mt-1 text-sm text-red-500">
             {error}
           </p>
         )}
         
         {helperText && !error && (
-          <p id={helperTextId} className="mt-1 text-sm text-muted">
+          <p id={helperTextId} className="mt-1 text-sm text-theme-muted">
             {helperText}
           </p>
         )}

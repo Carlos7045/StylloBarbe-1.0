@@ -233,14 +233,16 @@ export default function LoginPage() {
               }}
               onMouseOver={(e) => {
                 if (!isLoading) {
-                  e.target.style.opacity = '0.9'
-                  e.target.style.transform = 'translateY(-1px)'
+                  const target = e.target as HTMLElement
+                  target.style.opacity = '0.9'
+                  target.style.transform = 'translateY(-1px)'
                 }
               }}
               onMouseOut={(e) => {
                 if (!isLoading) {
-                  e.target.style.opacity = '1'
-                  e.target.style.transform = 'translateY(0)'
+                  const target = e.target as HTMLElement
+                  target.style.opacity = '1'
+                  target.style.transform = 'translateY(0)'
                 }
               }}
             >
@@ -248,8 +250,31 @@ export default function LoginPage() {
             </button>
           </form>
 
+          {/* Debug Button */}
+          <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+            <button
+              type="button"
+              onClick={async () => {
+                const { authService } = await import('@/domains/auth/services/authService')
+                authService.clearAllAuthData()
+                window.location.reload()
+              }}
+              style={{
+                fontSize: '0.75rem',
+                color: '#ef4444',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                textDecoration: 'underline',
+                marginBottom: '0.5rem'
+              }}
+            >
+              🔧 Limpar dados de autenticação (Debug)
+            </button>
+          </div>
+
           {/* Footer Links */}
-          <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
+          <div style={{ marginTop: '1rem', textAlign: 'center' }}>
             <Link 
               href="/cadastro" 
               style={{

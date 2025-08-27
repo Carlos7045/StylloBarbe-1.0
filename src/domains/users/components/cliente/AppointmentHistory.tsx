@@ -246,7 +246,7 @@ export function AppointmentHistory({ agendamentos, carregando }: AppointmentHist
                     </div>
                     {agendamento.avaliacaoCliente.comentario && (
                       <p className="text-sm text-amber-200">
-                        "{agendamento.avaliacaoCliente.comentario}"
+                        &quot;{agendamento.avaliacaoCliente.comentario}&quot;
                       </p>
                     )}
                   </div>

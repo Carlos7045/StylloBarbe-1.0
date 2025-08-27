@@ -61,28 +61,28 @@ function BarberCard({ barbeiro, onToggleFavorito, onAgendar, alterandoFavorito }
 
   return (
     <Card hover className="relative">
-      <CardContent className="p-6">
+      <CardContent className="p-4">
         {/* Header do Card */}
-        <div className="flex items-start justify-between mb-4">
-          <div className="flex items-center space-x-3">
+        <div className="flex items-start justify-between mb-3">
+          <div className="flex items-center space-x-2">
             {barbeiro.avatar ? (
               <img
                 src={barbeiro.avatar}
                 alt={barbeiro.nome}
-                className="w-12 h-12 rounded-full object-cover"
+                className="w-10 h-10 rounded-full object-cover"
               />
             ) : (
-              <div className="w-12 h-12 rounded-full bg-theme-tertiary flex items-center justify-center">
-                <User className="h-6 w-6 text-theme-muted" />
+              <div className="w-10 h-10 rounded-full bg-theme-tertiary flex items-center justify-center">
+                <User className="h-5 w-5 text-theme-muted" />
               </div>
             )}
-            <div>
-              <h3 className="font-semibold text-theme-primary">
+            <div className="min-w-0">
+              <h3 className="font-semibold text-theme-primary text-sm truncate">
                 {barbeiro.nome}
               </h3>
               <div className="flex items-center space-x-1">
                 {renderStars(Math.floor(barbeiro.avaliacaoMedia))}
-                <span className="text-sm text-theme-muted ml-1">
+                <span className="text-xs text-theme-muted ml-1">
                   {barbeiro.avaliacaoMedia.toFixed(1)}
                 </span>
               </div>
@@ -94,41 +94,46 @@ function BarberCard({ barbeiro, onToggleFavorito, onAgendar, alterandoFavorito }
             size="sm"
             onClick={() => onToggleFavorito(barbeiro.id)}
             disabled={alterandoFavorito}
-            className="text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
+            className="text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 p-1"
           >
-            <Heart className="h-5 w-5 fill-current" />
+            <Heart className="h-4 w-4 fill-current" />
           </Button>
         </div>
 
         {/* Informações da Barbearia */}
-        <div className="flex items-center space-x-2 mb-3">
-          <MapPin className="h-4 w-4 text-theme-muted" />
-          <span className="text-sm text-theme-secondary">
+        <div className="flex items-center space-x-1 mb-2">
+          <MapPin className="h-3 w-3 text-theme-muted flex-shrink-0" />
+          <span className="text-xs text-theme-secondary truncate">
             {barbeiro.barbeariaNome}
           </span>
         </div>
 
         {/* Especialidades */}
-        <div className="mb-4">
-          <div className="flex items-center space-x-2 mb-2">
-            <Scissors className="h-4 w-4 text-theme-muted" />
-            <span className="text-sm font-medium text-theme-secondary">
+        <div className="mb-3">
+          <div className="flex items-center space-x-1 mb-1">
+            <Scissors className="h-3 w-3 text-theme-muted" />
+            <span className="text-xs font-medium text-theme-secondary">
               Especialidades:
             </span>
           </div>
           <div className="flex flex-wrap gap-1">
-            {barbeiro.especialidades.map((especialidade, index) => (
-              <Badge key={index} variant="info" size="sm">
+            {barbeiro.especialidades.slice(0, 2).map((especialidade, index) => (
+              <Badge key={index} variant="info" size="sm" className="text-xs px-1 py-0">
                 {especialidade}
               </Badge>
             ))}
+            {barbeiro.especialidades.length > 2 && (
+              <Badge variant="info" size="sm" className="text-xs px-1 py-0">
+                +{barbeiro.especialidades.length - 2}
+              </Badge>
+            )}
           </div>
         </div>
 
         {/* Estatísticas */}
-        <div className="grid grid-cols-2 gap-4 mb-4 p-3 bg-theme-tertiary rounded-lg">
+        <div className="grid grid-cols-2 gap-2 mb-3 p-2 bg-theme-tertiary rounded-lg">
           <div className="text-center">
-            <div className="text-lg font-semibold text-theme-primary">
+            <div className="text-sm font-semibold text-theme-primary">
               {barbeiro.totalAtendimentos}
             </div>
             <div className="text-xs text-theme-muted">
@@ -136,7 +141,7 @@ function BarberCard({ barbeiro, onToggleFavorito, onAgendar, alterandoFavorito }
             </div>
           </div>
           <div className="text-center">
-            <div className="text-lg font-semibold text-theme-primary">
+            <div className="text-sm font-semibold text-theme-primary">
               {barbeiro.servicosFavoritos.length}
             </div>
             <div className="text-xs text-theme-muted">
@@ -146,48 +151,28 @@ function BarberCard({ barbeiro, onToggleFavorito, onAgendar, alterandoFavorito }
         </div>
 
         {/* Último Atendimento */}
-        <div className="flex items-center space-x-2 mb-4 text-sm text-theme-secondary">
-          <Calendar className="h-4 w-4" />
+        <div className="flex items-center space-x-1 mb-3 text-xs text-theme-secondary">
+          <Calendar className="h-3 w-3" />
           <span>Último: {formatarUltimoAtendimento(barbeiro.ultimoAtendimento)}</span>
         </div>
 
-        {/* Serviços Favoritos */}
-        {barbeiro.servicosFavoritos.length > 0 && (
-          <div className="mb-4">
-            <div className="text-sm font-medium text-theme-secondary mb-2">
-              Seus serviços preferidos:
-            </div>
-            <div className="space-y-1">
-              {barbeiro.servicosFavoritos.slice(0, 2).map((servico, index) => (
-                <div key={index} className="text-sm text-theme-tertiary">
-                  • {servico}
-                </div>
-              ))}
-              {barbeiro.servicosFavoritos.length > 2 && (
-                <div className="text-sm text-theme-muted">
-                  +{barbeiro.servicosFavoritos.length - 2} outros
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-
         {/* Ações */}
-        <div className="flex space-x-2">
+        <div className="flex space-x-1">
           <Button
             variant="primary"
             size="sm"
             onClick={() => onAgendar(barbeiro.id)}
-            className="flex-1"
+            className="flex-1 text-xs px-2 py-1"
           >
-            <Calendar className="h-4 w-4 mr-1" />
+            <Calendar className="h-3 w-3 mr-1" />
             Agendar
           </Button>
           <Button
             variant="outline"
             size="sm"
+            className="text-xs px-2 py-1"
           >
-            <MessageCircle className="h-4 w-4 mr-1" />
+            <MessageCircle className="h-3 w-3 mr-1" />
             Contato
           </Button>
         </div>
@@ -245,7 +230,7 @@ export function FavoriteBarbers({
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {barbeiros.map((barbeiro) => (
               <BarberCard
                 key={barbeiro.id}

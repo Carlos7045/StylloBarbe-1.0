@@ -104,12 +104,14 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                const theme = localStorage.getItem('styllo-theme') || 'system';
+                const theme = localStorage.getItem('styllo-theme') || 'dark';
                 const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
                 const effectiveTheme = theme === 'system' ? systemTheme : theme;
-                document.documentElement.className = effectiveTheme;
+                document.documentElement.classList.remove('light', 'dark');
+                document.documentElement.classList.add(effectiveTheme);
               } catch (e) {
-                document.documentElement.className = 'dark';
+                document.documentElement.classList.remove('light', 'dark');
+                document.documentElement.classList.add('dark');
               }
             `,
           }}
@@ -125,12 +127,9 @@ export default function RootLayout({
         <meta name="msapplication-TileColor" content="#d4af37" />
         <meta name="msapplication-tap-highlight" content="no" />
         
-        <link rel="apple-touch-icon" href="/icons/icon-152x152.png" />
-        <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192x192.png" />
+        <link rel="apple-touch-icon" href="/icons/icon.svg" />
         
-        <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16x16.png" />
+        <link rel="icon" type="image/svg+xml" href="/icons/icon.svg" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#d4af37" />
         <link rel="shortcut icon" href="/favicon.ico" />
@@ -149,7 +148,7 @@ export default function RootLayout({
         <meta property="og:image" content="https://styllobarber.com/og-image.png" />
       </head>
       <body className={`${inter.variable} font-primary antialiased`}>
-        <ThemeProvider defaultTheme="system" storageKey="styllo-theme">
+        <ThemeProvider defaultTheme="dark" storageKey="styllo-theme">
           <QueryProvider>
             <AuthProvider>
               {children}

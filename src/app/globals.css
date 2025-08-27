@@ -1,6 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @import 'tailwindcss';
 
+/* Configuração do Tailwind CSS v4 */
+@theme {
+  --color-theme-primary: var(--bg-primary);
+  --color-theme-secondary: var(--bg-secondary);
+  --color-theme-tertiary: var(--bg-tertiary);
+  --color-theme-hover: var(--bg-hover);
+  
+  --color-text-theme-primary: var(--text-primary);
+  --color-text-theme-secondary: var(--text-secondary);
+  --color-text-theme-tertiary: var(--text-tertiary);
+  --color-text-theme-muted: var(--text-muted);
+  
+  --color-border-theme-primary: var(--border-primary);
+  --color-border-theme-secondary: var(--border-secondary);
+  --color-border-theme-hover: var(--border-hover);
+}
+
 /* Reset e configurações base */
 * {
   box-sizing: border-box;
@@ -22,21 +39,21 @@ body {
 /* Variáveis do tema claro (padrão) */
 :root {
   /* Backgrounds */
-  --bg-primary: #f3f4f6;        /* Fundo geral cinza claro */
+  --bg-primary: #f8fafc;         /* Fundo geral cinza claro */
   --bg-secondary: #ffffff;       /* Cards e sidebar brancos */
-  --bg-tertiary: #f1f5f9;        /* Fundo alternativo com mais contraste */
-  --bg-hover: #e5e7eb;          /* Hover mais visível */
+  --bg-tertiary: #f1f5f9;        /* Fundo alternativo */
+  --bg-hover: #e2e8f0;          /* Hover */
   
-  /* Textos - Melhor contraste para tema claro */
-  --text-primary: #000000;       /* Texto principal preto puro */
-  --text-secondary: #1f2937;     /* Texto secundário escuro */
-  --text-tertiary: #374151;      /* Texto terciário escuro */
-  --text-muted: #4b5563;         /* Texto desabilitado mais escuro */
+  /* Textos */
+  --text-primary: #0f172a;       /* Texto principal escuro */
+  --text-secondary: #334155;     /* Texto secundário */
+  --text-tertiary: #475569;      /* Texto terciário */
+  --text-muted: #64748b;         /* Texto desabilitado */
   
   /* Bordas */
-  --border-primary: #e5e7eb;     /* Bordas principais */
-  --border-secondary: #d1d5db;   /* Bordas secundárias */
-  --border-hover: #9ca3af;       /* Bordas em hover */
+  --border-primary: #e2e8f0;     /* Bordas principais */
+  --border-secondary: #cbd5e1;   /* Bordas secundárias */
+  --border-hover: #94a3b8;       /* Bordas em hover */
   
   /* Amarelo (mantém em ambos os temas) */
   --accent-primary: #f59e0b;     /* Amarelo principal */
@@ -47,21 +64,21 @@ body {
 /* Variáveis do tema escuro */
 .dark {
   /* Backgrounds */
-  --bg-primary: #000000;         /* Fundo preto puro */
-  --bg-secondary: #1f2937;       /* Cards cinza escuro */
-  --bg-tertiary: #111827;        /* Fundo alternativo */
-  --bg-hover: #374155;           /* Hover */
+  --bg-primary: #0f172a;         /* Fundo principal escuro */
+  --bg-secondary: #1e293b;       /* Cards cinza escuro */
+  --bg-tertiary: #334155;        /* Fundo alternativo */
+  --bg-hover: #475569;           /* Hover */
   
   /* Textos */
-  --text-primary: #ffffff;       /* Texto principal branco */
-  --text-secondary: #d1d5db;     /* Texto secundário */
-  --text-tertiary: #9ca3af;      /* Texto terciário */
-  --text-muted: #6b7280;         /* Texto desabilitado */
+  --text-primary: #f8fafc;       /* Texto principal branco */
+  --text-secondary: #cbd5e1;     /* Texto secundário */
+  --text-tertiary: #94a3b8;      /* Texto terciário */
+  --text-muted: #64748b;         /* Texto desabilitado */
   
   /* Bordas */
-  --border-primary: #374151;     /* Bordas principais */
-  --border-secondary: #4b5563;   /* Bordas secundárias */
-  --border-hover: #6b7280;       /* Bordas em hover */
+  --border-primary: #334155;     /* Bordas principais */
+  --border-secondary: #475569;   /* Bordas secundárias */
+  --border-hover: #64748b;       /* Bordas em hover */
 }
 
 /* Aplicar as variáveis no body e html */
@@ -79,21 +96,32 @@ body {
 /* === CLASSES UTILITÁRIAS PARA TEMAS === */
 
 /* Backgrounds usando variáveis CSS */
-.bg-theme-primary { background-color: var(--bg-primary); }
-.bg-theme-secondary { background-color: var(--bg-secondary); }
-.bg-theme-tertiary { background-color: var(--bg-tertiary); }
-.hover\:bg-theme-hover:hover { background-color: var(--bg-hover); }
+.bg-theme-primary { background-color: var(--bg-primary) !important; }
+.bg-theme-secondary { background-color: var(--bg-secondary) !important; }
+.bg-theme-tertiary { background-color: var(--bg-tertiary) !important; }
+.hover\:bg-theme-hover:hover { background-color: var(--bg-hover) !important; }
 
 /* Textos usando variáveis CSS */
-.text-theme-primary { color: var(--text-primary); }
-.text-theme-secondary { color: var(--text-secondary); }
-.text-theme-tertiary { color: var(--text-tertiary); }
-.text-theme-muted { color: var(--text-muted); }
+.text-theme-primary { color: var(--text-primary) !important; }
+.text-theme-secondary { color: var(--text-secondary) !important; }
+.text-theme-tertiary { color: var(--text-tertiary) !important; }
+.text-theme-muted { color: var(--text-muted) !important; }
 
 /* Bordas usando variáveis CSS */
-.border-theme-primary { border-color: var(--border-primary); }
-.border-theme-secondary { border-color: var(--border-secondary); }
-.hover\:border-theme-hover:hover { border-color: var(--border-hover); }
+.border-theme-primary { border-color: var(--border-primary) !important; }
+.border-theme-secondary { border-color: var(--border-secondary) !important; }
+.hover\:border-theme-hover:hover { border-color: var(--border-hover) !important; }
+
+/* === BORDAS LATERAIS COLORIDAS PARA MÉTRICAS === */
+.metric-card-blue { border-left: 4px solid #3b82f6 !important; }
+.metric-card-green { border-left: 4px solid #10b981 !important; }
+.metric-card-purple { border-left: 4px solid #8b5cf6 !important; }
+.metric-card-amber { border-left: 4px solid #fbbf24 !important; }
+.metric-card-orange { border-left: 4px solid #f97316 !important; }
+.metric-card-indigo { border-left: 4px solid #6366f1 !important; }
+
+/* Placeholder usando variáveis CSS */
+.placeholder\:text-theme-muted::placeholder { color: var(--text-muted) !important; }
 
 /* === BOTÕES STYLLO BARBER === */
 

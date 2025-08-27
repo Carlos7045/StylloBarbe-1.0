@@ -30,6 +30,13 @@ const ROLE_REDIRECTS: Record<string, string> = {
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   
+  // Debug log para identificar requisições problemáticas
+  if (pathname.includes('auth/login')) {
+    console.log('🚨 Requisição incorreta detectada:', pathname)
+    console.log('🔄 Redirecionando para /login')
+    return NextResponse.redirect(new URL('/login', request.url))
+  }
+  
   // Ignora arquivos estáticos e API routes
   if (
     pathname.startsWith('/_next') ||
@@ -70,7 +77,9 @@ export function middleware(request: NextRequest) {
   // Se está autenticado
   if (isAuthenticated && user) {
     // Se está na página de login/cadastro, redireciona para dashboard
-    if (pathname === '/login' || pathname === '/cadastro') {
+    // Mas apenas se não há parâmetro de debug
+    const hasDebugParam = request.nextUrl.searchParams.has('debug')
+    if ((pathname === '/login' || pathname === '/cadastro') && !hasDebugParam) {
       const dashboardUrl = ROLE_REDIRECTS[user.role] || '/'
       return NextResponse.redirect(new URL(dashboardUrl, request.url))
     }

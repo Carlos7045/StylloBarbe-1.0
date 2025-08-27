@@ -233,7 +233,7 @@ export function PersonalSchedule({ agendamentos, onUpdateStatus, onViewClientHis
                     
                     {agendamento.observacoes && (
                       <div className="text-sm text-theme-tertiary italic max-w-xs truncate">
-                        "{agendamento.observacoes}"
+                        &quot;{agendamento.observacoes}&quot;
                       </div>
                     )}
                   </div>

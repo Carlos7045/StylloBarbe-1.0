@@ -96,16 +96,16 @@ export function TodayAppointments({ agendamentos, onUpdateStatus, onViewDetails 
 
   return (
     <div className="bg-theme-secondary rounded-lg border border-theme-primary">
-      <div className="p-6 border-b border-theme-primary">
-        <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
-          <h2 className="text-xl font-semibold text-theme-primary">
+      <div className="p-4 border-b border-theme-primary">
+        <div className="flex flex-col sm:flex-row gap-3 justify-between items-start sm:items-center">
+          <h2 className="text-lg font-semibold text-theme-primary">
             Agendamentos de Hoje
           </h2>
           
           <select
             value={filtroStatus}
             onChange={(e) => setFiltroStatus(e.target.value)}
-            className="px-3 py-2 border border-theme-primary bg-theme-tertiary text-theme-primary rounded-lg focus:ring-2 focus:ring-amber-400 focus:border-transparent"
+            className="px-2 py-1 text-sm border border-theme-primary bg-theme-tertiary text-theme-primary rounded focus:ring-2 focus:ring-amber-400 focus:border-transparent"
           >
             <option value="todos">Todos os status</option>
             <option value="agendado">Agendado</option>
@@ -119,19 +119,19 @@ export function TodayAppointments({ agendamentos, onUpdateStatus, onViewDetails 
 
       <div className="divide-y divide-theme-primary">
         {agendamentosFiltrados.length === 0 ? (
-          <div className="p-8 text-center text-theme-tertiary">
-            <Calendar className="h-12 w-12 mx-auto mb-3 text-theme-muted" />
-            <p>Nenhum agendamento encontrado para hoje</p>
+          <div className="p-6 text-center text-theme-tertiary">
+            <Calendar className="h-10 w-10 mx-auto mb-2 text-theme-muted" />
+            <p className="text-sm">Nenhum agendamento encontrado para hoje</p>
           </div>
         ) : (
           agendamentosFiltrados.map((agendamento) => (
-            <div key={agendamento.id} className="p-6 hover:bg-theme-hover transition-colors">
+            <div key={agendamento.id} className="p-4 hover:bg-theme-hover transition-colors">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <div className="flex items-center space-x-3 mb-3">
-                    <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <div className="flex items-center space-x-1">
                       {getStatusIcon(agendamento.status)}
-                      <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusBadgeClass(agendamento.status)}`}>
+                      <span className={`px-1.5 py-0.5 text-xs font-medium rounded ${getStatusBadgeClass(agendamento.status)}`}>
                         {getStatusText(agendamento.status)}
                       </span>
                     </div>
@@ -141,58 +141,56 @@ export function TodayAppointments({ agendamentos, onUpdateStatus, onViewDetails 
                         minute: '2-digit' 
                       })}
                     </div>
+                    <div className="text-sm font-semibold text-green-600 dark:text-green-400">
+                      R$ {agendamento.valorTotal.toLocaleString()}
+                    </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2">
-                        <User className="h-4 w-4 text-theme-tertiary" />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div className="space-y-1">
+                      <div className="flex items-center space-x-1">
+                        <User className="h-3 w-3 text-theme-tertiary" />
                         <span className="text-sm font-medium text-theme-primary">
                           {agendamento.clienteNome}
                         </span>
                       </div>
-                      <div className="flex items-center space-x-2">
-                        <Phone className="h-4 w-4 text-theme-tertiary" />
-                        <span className="text-sm text-theme-secondary">
+                      <div className="flex items-center space-x-1">
+                        <Phone className="h-3 w-3 text-theme-tertiary" />
+                        <span className="text-xs text-theme-secondary">
                           {agendamento.clienteTelefone}
                         </span>
                       </div>
                     </div>
 
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2">
-                        <Scissors className="h-4 w-4 text-theme-tertiary" />
+                    <div className="space-y-1">
+                      <div className="flex items-center space-x-1">
+                        <Scissors className="h-3 w-3 text-theme-tertiary" />
                         <span className="text-sm text-theme-primary">
                           {agendamento.servicoNome}
                         </span>
                       </div>
-                      <div className="flex items-center space-x-2">
-                        <User className="h-4 w-4 text-theme-tertiary" />
-                        <span className="text-sm text-theme-secondary">
+                      <div className="flex items-center space-x-1">
+                        <User className="h-3 w-3 text-theme-tertiary" />
+                        <span className="text-xs text-theme-secondary">
                           {agendamento.barbeiroNome}
                         </span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="mt-3 flex items-center justify-between">
-                    <div className="text-lg font-semibold text-green-600 dark:text-green-400">
-                      R$ {agendamento.valorTotal.toLocaleString()}
+                  {agendamento.observacoes && (
+                    <div className="mt-2 text-xs text-theme-tertiary italic truncate">
+                      &quot;{agendamento.observacoes}&quot;
                     </div>
-                    
-                    {agendamento.observacoes && (
-                      <div className="text-sm text-theme-tertiary italic max-w-xs truncate">
-                        "{agendamento.observacoes}"
-                      </div>
-                    )}
-                  </div>
+                  )}
                 </div>
 
-                <div className="flex flex-col space-y-2 ml-4">
+                <div className="flex flex-col space-y-1 ml-3">
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={() => onViewDetails(agendamento.id)}
+                    className="text-xs px-2 py-1"
                   >
                     Detalhes
                   </Button>
@@ -203,6 +201,7 @@ export function TodayAppointments({ agendamentos, onUpdateStatus, onViewDetails 
                       variant={getActionVariant(action) as any}
                       size="sm"
                       onClick={() => onUpdateStatus(agendamento.id, action as AgendamentoResumo['status'])}
+                      className="text-xs px-2 py-1"
                     >
                       {getActionLabel(action)}
                     </Button>

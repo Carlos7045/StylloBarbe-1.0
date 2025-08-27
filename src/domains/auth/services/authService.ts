@@ -122,6 +122,28 @@ class AuthService {
   logout(): void {
     localStorage.removeItem(this.TOKEN_KEY)
     localStorage.removeItem(this.USER_KEY)
+    
+    // Limpar também os cookies
+    document.cookie = 'styllo_auth_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+    document.cookie = 'styllo_auth_user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+  }
+
+  // Função para limpar completamente a sessão (útil para desenvolvimento)
+  clearAllAuthData(): void {
+    // Limpar localStorage
+    localStorage.removeItem(this.TOKEN_KEY)
+    localStorage.removeItem(this.USER_KEY)
+    
+    // Limpar cookies
+    document.cookie = 'styllo_auth_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+    document.cookie = 'styllo_auth_user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+    
+    // Limpar qualquer outro dado relacionado
+    Object.keys(localStorage).forEach(key => {
+      if (key.includes('styllo') || key.includes('auth')) {
+        localStorage.removeItem(key)
+      }
+    })
   }
 
   // Recupera usuário do localStorage

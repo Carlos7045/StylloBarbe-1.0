@@ -430,14 +430,16 @@ export default function CadastroPage() {
               }}
               onMouseOver={(e) => {
                 if (!isLoading) {
-                  e.target.style.opacity = '0.9'
-                  e.target.style.transform = 'translateY(-1px)'
+                  const target = e.target as HTMLElement
+                  target.style.opacity = '0.9'
+                  target.style.transform = 'translateY(-1px)'
                 }
               }}
               onMouseOut={(e) => {
                 if (!isLoading) {
-                  e.target.style.opacity = '1'
-                  e.target.style.transform = 'translateY(0)'
+                  const target = e.target as HTMLElement
+                  target.style.opacity = '1'
+                  target.style.transform = 'translateY(0)'
                 }
               }}
             >

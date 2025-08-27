@@ -7,6 +7,22 @@ interface LoadingSkeletonProps {
   rows?: number
 }
 
+export function Loading({ className, rows = 1 }: LoadingSkeletonProps) {
+  return (
+    <div className="animate-pulse space-y-3">
+      {Array.from({ length: rows }).map((_, i) => (
+        <div
+          key={i}
+          className={cn(
+            'h-4 rounded bg-theme-tertiary',
+            className
+          )}
+        />
+      ))}
+    </div>
+  )
+}
+
 export function LoadingSkeleton({ className, rows = 1 }: LoadingSkeletonProps) {
   return (
     <div className="animate-pulse space-y-3">

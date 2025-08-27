@@ -83,7 +83,7 @@ function ClienteDashboard() {
       onNewButtonClick={() => handleAgendar()}
     >
       {abaSelecionada === 'dashboard' && (
-        <>
+        <div className="space-y-6">
           {/* Métricas */}
           {metricas && (
             <ClientMetrics 
@@ -103,7 +103,7 @@ function ClienteDashboard() {
           />
 
           {/* Favoritos Resumo */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <FavoriteBarbers
               barbeiros={barbeirosFavoritos.slice(0, 2)}
               carregando={carregandoBarbeirosFavoritos}
@@ -119,7 +119,7 @@ function ClienteDashboard() {
               alterandoFavorito={alterandoServicoFavorito}
             />
           </div>
-        </>
+        </div>
       )}
 
       {abaSelecionada === 'agendamentos' && (
@@ -141,7 +141,7 @@ function ClienteDashboard() {
       )}
 
       {abaSelecionada === 'favoritos' && (
-        <div className="space-y-8">
+        <div className="space-y-6">
           <FavoriteBarbers
             barbeiros={barbeirosFavoritos}
             carregando={carregandoBarbeirosFavoritos}
