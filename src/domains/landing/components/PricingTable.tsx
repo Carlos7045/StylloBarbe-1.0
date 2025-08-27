@@ -126,8 +126,13 @@ export function PricingTable() {
   }
 
   return (
-    <section className="py-20 bg-slate-800" ref={ref}>
-      <div className="container-custom">
+    <section className="py-20 bg-gray-900 relative overflow-hidden" ref={ref}>
+      {/* Background decorative elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-10 right-10 w-32 h-32 rounded-full bg-yellow-500/10 blur-3xl animate-pulse" />
+        <div className="absolute bottom-10 left-10 w-40 h-40 rounded-full bg-yellow-400/10 blur-3xl animate-pulse" style={{ animationDelay: '3s' }} />
+      </div>
+      <div className="container-custom relative z-10">
         {/* Header */}
         <motion.div 
           className="text-center mb-16"
@@ -141,7 +146,7 @@ export function PricingTable() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Escolha o plano ideal para sua barbearia
+            Escolha o plano ideal para sua <span className="text-yellow-500">barbearia</span>
           </motion.h2>
           <motion.p 
             className="text-lg sm:text-xl text-gray-300 max-w-5xl mx-auto leading-relaxed px-4 text-no-break"
@@ -173,17 +178,17 @@ export function PricingTable() {
               {/* Popular badge */}
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-                  <div className="bg-gradient-to-r from-accent-500 to-accent-400 text-primary-900 px-4 py-2 rounded-full text-sm font-semibold shadow-lg flex items-center gap-1">
+                  <div className="bg-gradient-to-r from-yellow-500 to-yellow-400 text-gray-900 px-4 py-2 rounded-full text-sm font-semibold shadow-lg flex items-center gap-1">
                     <Star className="w-4 h-4" />
                     Mais Popular
                   </div>
                 </div>
               )}
 
-              <div className={`bg-gray-900/90 backdrop-blur-sm rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 p-6 lg:p-8 h-full border-2 ${
+              <div className={`bg-gray-800 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 p-6 lg:p-8 h-full border-2 ${
                 plan.popular 
-                  ? 'border-accent-500 shadow-accent-500/20 bg-gradient-to-br from-accent-900/20 to-gray-900' 
-                  : 'border-gray-700/50'
+                  ? 'border-yellow-500 shadow-yellow-500/20 bg-gradient-to-br from-yellow-900/20 to-gray-800' 
+                  : 'border-gray-700 hover:border-gray-500'
               }`}>
                 {/* Plan header */}
                 <div className="text-center mb-6">
@@ -248,8 +253,8 @@ export function PricingTable() {
                 {/* Hover effect overlay */}
                 <div className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none ${
                   plan.popular 
-                    ? 'bg-gradient-to-br from-accent-500/5 to-accent-400/5' 
-                    : 'bg-gradient-to-br from-primary-500/5 to-transparent'
+                    ? 'bg-gradient-to-br from-yellow-500/5 to-yellow-400/5' 
+                    : 'bg-gradient-to-br from-yellow-500/5 to-transparent'
                 }`} />
               </div>
             </motion.div>
@@ -263,7 +268,7 @@ export function PricingTable() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, delay: 1.0 }}
         >
-          <div className="bg-gray-900/80 rounded-2xl p-8">
+          <div className="bg-gray-800 rounded-2xl p-8 border border-gray-700">
             <h3 className="text-2xl font-bold text-white mb-4">
               Não tem certeza qual plano escolher?
             </h3>

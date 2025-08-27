@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { useLoginRedirect } from '@/domains/auth/hooks/useLoginRedirect'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -11,6 +12,7 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const router = useRouter()
+  const { redirectAfterLogin } = useLoginRedirect()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -24,22 +26,14 @@ export default function LoginPage() {
       // Fazer login real
       const user = await authService.login({ email, senha })
       
-      // Redirecionamento baseado no role
-      switch (user.role) {
-        case 'admin_saas':
-          router.push('/admin-saas')
-          break
-        case 'admin_barbearia':
-          router.push('/admin-barbearia')
-          break
-        case 'barbeiro':
-          router.push('/barbeiro')
-          break
-        case 'cliente':
-          router.push('/cliente')
-          break
-        default:
-          router.push('/')
+      // Obter token para sincronização
+      const token = authService.getToken()
+      
+      if (token) {
+        // Usar o hook de redirecionamento que garante sincronização adequada
+        await redirectAfterLogin(user, token)
+      } else {
+        throw new Error('Token não encontrado após login')
       }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Email ou senha incorretos'

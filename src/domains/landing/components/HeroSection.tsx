@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { Button } from '@/shared/components/ui/Button'
 import { Scissors, Play, Calendar, DollarSign, BarChart3, Users } from 'lucide-react'
 import Link from 'next/link'
+import { landingClasses } from '../styles/colors'
 
 export function HeroSection() {
   return (
@@ -66,21 +67,21 @@ export function HeroSection() {
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <div className="hero-title-line">
-                <span className="text-theme-primary">Transforme sua </span>
+                <span className="text-white">Transforme sua </span>
                 <span className="bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">
                   Barbearia
                 </span>
               </div>
               <br className="hidden sm:block" />
               <div className="hero-title-line">
-                <span className="text-theme-primary">em um negócio </span>
+                <span className="text-white">em um negócio </span>
                 <span className="text-amber-400">digital</span>
               </div>
             </motion.div>
             
             {/* Subtitle */}
             <motion.p 
-              className="text-xl text-theme-secondary mb-8 max-w-2xl leading-relaxed hero-paragraph"
+              className="text-xl text-gray-300 mb-8 max-w-2xl leading-relaxed hero-paragraph"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -109,7 +110,7 @@ export function HeroSection() {
               <Button 
                 size="lg" 
                 variant="outline"
-                className="border-theme-primary text-theme-secondary hover:text-theme-primary hover:border-theme-secondary text-lg px-8 py-4 transition-all"
+                className="border-gray-600 text-gray-300 hover:text-white hover:border-gray-400 text-lg px-8 py-4 transition-all"
               >
                 <Play className="w-5 h-5 mr-2" />
                 Ver Demo
@@ -124,16 +125,16 @@ export function HeroSection() {
               transition={{ duration: 0.8, delay: 0.8 }}
             >
               <div>
-                <div className="text-2xl font-bold text-theme-primary">500+</div>
-                <div className="text-sm text-theme-tertiary">Barbearias</div>
+                <div className="text-2xl font-bold text-white">500+</div>
+                <div className="text-sm text-gray-400">Barbearias</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-theme-primary">10k+</div>
-                <div className="text-sm text-theme-tertiary">Agendamentos</div>
+                <div className="text-2xl font-bold text-white">10k+</div>
+                <div className="text-sm text-gray-400">Agendamentos</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-theme-primary">98%</div>
-                <div className="text-sm text-theme-tertiary">Satisfação</div>
+                <div className="text-2xl font-bold text-white">98%</div>
+                <div className="text-sm text-gray-400">Satisfação</div>
               </div>
             </motion.div>
           </div>
@@ -147,26 +148,26 @@ export function HeroSection() {
               className="relative max-w-lg mx-auto lg:mx-0"
             >
               {/* Main Dashboard Mockup */}
-              <div className="relative bg-theme-secondary rounded-2xl shadow-2xl overflow-hidden border border-theme-primary">
+              <div className="relative bg-gray-800 rounded-2xl shadow-2xl overflow-hidden border border-gray-700">
                 {/* Browser Header */}
-                <div className="bg-theme-tertiary px-4 py-3 flex items-center gap-2 border-b border-theme-primary">
+                <div className="bg-gray-700 px-4 py-3 flex items-center gap-2 border-b border-gray-600">
                   <div className="w-3 h-3 rounded-full bg-red-500"></div>
                   <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                   <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                  <div className="ml-4 text-sm text-theme-tertiary font-mono">styllobarber.com/dashboard</div>
+                  <div className="ml-4 text-sm text-gray-400 font-mono">styllobarber.com/dashboard</div>
                 </div>
                 
                 {/* Dashboard Content */}
-                <div className="p-4 bg-theme-primary">
+                <div className="p-4 bg-gray-900">
                   {/* Header */}
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 bg-gradient-to-br from-amber-400 to-amber-600 rounded-lg flex items-center justify-center">
                         <span className="text-slate-900 font-bold text-sm">S</span>
                       </div>
-                      <span className="text-theme-primary font-bold">Dashboard</span>
+                      <span className="text-white font-bold">Dashboard</span>
                     </div>
-                    <div className="w-8 h-8 bg-theme-tertiary rounded-full"></div>
+                    <div className="w-8 h-8 bg-gray-700 rounded-full"></div>
                   </div>
 
                   {/* Metrics Cards */}
@@ -179,7 +180,7 @@ export function HeroSection() {
                     ].map((metric, index) => (
                       <motion.div
                         key={index}
-                        className="bg-theme-secondary rounded-lg p-2 shadow-sm border border-theme-primary"
+                        className="bg-gray-800 rounded-lg p-2 shadow-sm border border-gray-700"
                         animate={{ 
                           scale: [1, 1.02, 1],
                         }}
@@ -192,20 +193,20 @@ export function HeroSection() {
                       >
                         <div className="flex items-center space-x-2 mb-1">
                           <metric.icon className={`w-4 h-4 text-${metric.color}-500`} />
-                          <span className="text-xs text-theme-tertiary">{metric.label}</span>
+                          <span className="text-xs text-gray-400">{metric.label}</span>
                         </div>
-                        <div className="text-base font-bold text-theme-primary">{metric.value}</div>
+                        <div className="text-base font-bold text-white">{metric.value}</div>
                       </motion.div>
                     ))}
                   </div>
 
                   {/* Chart Area */}
-                  <div className="bg-theme-secondary rounded-lg p-3 shadow-sm border border-theme-primary">
+                  <div className="bg-gray-800 rounded-lg p-3 shadow-sm border border-gray-700">
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-sm font-medium text-theme-primary">Agendamentos da Semana</span>
+                      <span className="text-sm font-medium text-white">Agendamentos da Semana</span>
                       <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                     </div>
-                    <div className="h-16 bg-theme-tertiary rounded flex items-end justify-between px-2 pb-2">
+                    <div className="h-16 bg-gray-700 rounded flex items-end justify-between px-2 pb-2">
                       {[40, 65, 45, 80, 55, 70, 85].map((height, index) => (
                         <motion.div
                           key={index}

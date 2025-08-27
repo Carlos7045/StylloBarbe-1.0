@@ -101,8 +101,15 @@ export function BenefitsGrid() {
   }
 
   return (
-    <section className="py-20 bg-slate-800 benefits-section" ref={ref}>
-      <div className="container-custom">
+    <section className="py-20 bg-gray-900 benefits-section relative overflow-hidden" ref={ref}>
+      {/* Background decorative elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-yellow-500/10 blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-10 w-40 h-40 rounded-full bg-yellow-400/10 blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-1/2 left-1/4 w-24 h-24 rounded-full bg-yellow-300/10 blur-2xl animate-pulse" style={{ animationDelay: '4s' }} />
+      </div>
+
+      <div className="container-custom relative z-10">
         {/* Header Section */}
         <motion.div
           className="text-center mb-16"
@@ -116,7 +123,7 @@ export function BenefitsGrid() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Por que escolher o StylloBarber?
+            Por que escolher o <span className="text-yellow-500">StylloBarber</span>?
           </motion.h2>
           <motion.p
             className="text-lg sm:text-xl text-gray-300 max-w-5xl mx-auto leading-relaxed px-4 text-no-break"
@@ -145,7 +152,7 @@ export function BenefitsGrid() {
               }}
               className="group"
             >
-              <div className="bg-gray-900/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-700/50 h-full benefit-card">
+              <div className="bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-700 h-full benefit-card hover:border-gray-500">
                 {/* Icon with gradient background */}
                 <div className="relative mb-6">
                   <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${benefit.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
@@ -154,7 +161,7 @@ export function BenefitsGrid() {
 
                   {/* Floating animation elements */}
                   <motion.div
-                    className="absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full opacity-0 group-hover:opacity-100"
+                    className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-500 rounded-full opacity-0 group-hover:opacity-100"
                     animate={{
                       scale: [1, 1.2, 1],
                       opacity: [0.5, 1, 0.5]
@@ -169,7 +176,7 @@ export function BenefitsGrid() {
 
                 {/* Content */}
                 <div className="space-y-4">
-                  <h3 className="text-xl font-bold text-white group-hover:text-accent transition-colors duration-300 mb-3">
+                  <h3 className="text-xl font-bold text-white group-hover:text-yellow-500 transition-colors duration-300 mb-3">
                     {benefit.title}
                   </h3>
 
@@ -179,7 +186,7 @@ export function BenefitsGrid() {
                 </div>
 
                 {/* Hover effect overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
               </div>
             </motion.div>
           ))}
@@ -192,15 +199,15 @@ export function BenefitsGrid() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, delay: 0.8 }}
         >
-          <div className="bg-gradient-to-r from-accent to-accent rounded-2xl p-8 text-primary shadow-xl">
-            <h3 className="text-2xl font-bold mb-4 text-primary">
+          <div className="bg-yellow-500 rounded-2xl p-8 text-gray-900 shadow-xl">
+            <h3 className="text-2xl font-bold mb-4 text-gray-900">
               Pronto para transformar sua barbearia?
             </h3>
-            <p className="text-lg mb-6 opacity-90 text-primary">
+            <p className="text-lg mb-6 opacity-90 text-gray-900">
               Junte-se a centenas de profissionais que já revolucionaram seus negócios
             </p>
             <motion.button
-              className="bg-primary text-white px-8 py-3 rounded-xl font-semibold hover:opacity-90 transition-all duration-300 shadow-lg"
+              className="bg-gray-900 text-white px-8 py-3 rounded-xl font-semibold hover:bg-gray-800 transition-all duration-300 shadow-lg"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

@@ -91,8 +91,13 @@ export function TestimonialsCarousel() {
   }
 
   return (
-    <section className="py-20 bg-slate-900" ref={ref}>
-      <div className="container-custom">
+    <section className="py-20 bg-gray-800 relative overflow-hidden" ref={ref}>
+      {/* Background decorative elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 left-20 w-32 h-32 rounded-full bg-yellow-500/10 blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-20 w-40 h-40 rounded-full bg-yellow-400/10 blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+      </div>
+      <div className="container-custom relative z-10">
         {/* Header */}
         <motion.div 
           className="text-center mb-16"
@@ -106,7 +111,7 @@ export function TestimonialsCarousel() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            O que nossos clientes dizem
+            O que nossos <span className="text-yellow-500">clientes</span> dizem
           </motion.h2>
           <motion.p 
             className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto px-4 leading-relaxed text-no-break"
@@ -126,7 +131,7 @@ export function TestimonialsCarousel() {
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           {/* Main testimonial card */}
-          <div className="relative bg-gray-900/80 rounded-2xl shadow-2xl overflow-hidden min-h-[400px]">
+          <div className="relative bg-gray-900 rounded-2xl shadow-2xl overflow-hidden min-h-[400px] border border-gray-700">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentIndex}
@@ -138,13 +143,13 @@ export function TestimonialsCarousel() {
               >
                 {/* Quote icon */}
                 <div className="absolute top-6 right-6 opacity-10">
-                  <Quote className="w-16 h-16 text-accent-500" />
+                  <Quote className="w-16 h-16 text-yellow-500" />
                 </div>
 
                 {/* Rating */}
                 <div className="flex items-center gap-1 mb-6">
                   {Array.from({ length: testimonials[currentIndex].rating }).map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-accent-500 fill-current" />
+                    <Star key={i} className="w-5 h-5 text-yellow-500 fill-current" />
                   ))}
                 </div>
 
@@ -156,7 +161,7 @@ export function TestimonialsCarousel() {
                 {/* Author info */}
                 <div className="flex items-center gap-4">
                   {/* Avatar placeholder */}
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center text-white font-bold text-xl">
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center text-gray-900 font-bold text-xl">
                     {testimonials[currentIndex].name.charAt(0)}
                   </div>
                   
@@ -201,7 +206,7 @@ export function TestimonialsCarousel() {
                 onClick={() => goToTestimonial(index)}
                 className={`w-3 h-3 rounded-full transition-all duration-300 ${
                   index === currentIndex
-                    ? 'bg-accent-500 scale-125'
+                    ? 'bg-yellow-500 scale-125'
                     : 'bg-gray-600 hover:bg-gray-500'
                 }`}
                 aria-label={`Ir para depoimento ${index + 1}`}
@@ -229,7 +234,7 @@ export function TestimonialsCarousel() {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 1.2 + (index * 0.1) }}
             >
-              <div className="text-3xl md:text-4xl font-bold text-accent-500 mb-2">
+              <div className="text-3xl md:text-4xl font-bold text-yellow-500 mb-2">
                 {stat.number}
               </div>
               <div className="text-gray-300">

@@ -24,12 +24,12 @@ export function CTASection() {
   ]
 
   return (
-    <section className="py-20 bg-slate-900 text-white relative overflow-hidden" ref={ref}>
+    <section className="py-20 bg-gray-800 text-white relative overflow-hidden" ref={ref}>
       {/* Background decorative elements */}
       <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-accent-500 blur-3xl animate-pulse" />
-        <div className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-accent-400 blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 left-1/4 w-24 h-24 rounded-full bg-accent-300 blur-2xl animate-pulse" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-yellow-500 blur-3xl animate-pulse" />
+        <div className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-yellow-400 blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-1/2 left-1/4 w-24 h-24 rounded-full bg-yellow-300 blur-2xl animate-pulse" style={{ animationDelay: '2s' }} />
       </div>
 
       <div className="container-custom relative z-10">
@@ -45,8 +45,8 @@ export function CTASection() {
               delay: 0.2 
             }}
           >
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-accent-500 mb-6 shadow-2xl relative">
-              <Scissors className="w-10 h-10 text-primary-900" />
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-yellow-500 mb-6 shadow-2xl relative">
+              <Scissors className="w-10 h-10 text-gray-900" />
               
               {/* Floating sparkles */}
               <motion.div
@@ -61,7 +61,7 @@ export function CTASection() {
                   ease: "easeInOut"
                 }}
               >
-                <Sparkles className="w-6 h-6 text-accent-300" />
+                <Sparkles className="w-6 h-6 text-yellow-300" />
               </motion.div>
             </div>
           </motion.div>
@@ -82,7 +82,7 @@ export function CTASection() {
                 Pronto para revolucionar
               </motion.span>
               <motion.span 
-                className="block text-accent-300"
+                className="block text-yellow-500"
                 initial={{ opacity: 0, x: 50 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
@@ -118,7 +118,7 @@ export function CTASection() {
                 transition={{ duration: 0.5, delay: 1.4 + (index * 0.1) }}
                 whileHover={{ scale: 1.05 }}
               >
-                <CheckCircle className="w-5 h-5 text-accent-300" />
+                <CheckCircle className="w-5 h-5 text-yellow-400" />
                 <span className="text-sm font-medium">{benefit}</span>
               </motion.div>
             ))}
@@ -137,8 +137,7 @@ export function CTASection() {
             >
               <Button 
                 size="lg" 
-                variant="accent" 
-                className="text-lg px-8 py-4 shadow-2xl hover:shadow-accent-500/25 transition-all duration-300 group"
+                className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold text-lg px-8 py-4 shadow-2xl hover:shadow-yellow-500/25 transition-all duration-300 group"
               >
                 <Zap className="w-5 h-5 mr-2 group-hover:animate-pulse" />
                 Começar Teste Grátis
@@ -172,7 +171,7 @@ export function CTASection() {
             </p>
             
             {/* Animated counter */}
-            <div className="flex justify-center items-center gap-8 text-accent-300">
+            <div className="flex justify-center items-center gap-8 text-yellow-400">
               <motion.div
                 className="text-center"
                 animate={{ 

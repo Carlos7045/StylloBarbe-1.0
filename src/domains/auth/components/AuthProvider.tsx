@@ -108,6 +108,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
       dispatch({ type: 'CLEAR_ERROR' })
       
       const user = await authService.login(credentials)
+      
+      // Força a sincronização imediata com cookies
+      const token = authService.getToken()
+      if (token) {
+        syncAuthWithCookies(user, token)
+      }
+      
       dispatch({ type: 'SET_USER', payload: user })
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Erro ao fazer login'

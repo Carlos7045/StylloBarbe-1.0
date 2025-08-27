@@ -98,8 +98,23 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
+    <html lang="pt-BR" suppressHydrationWarning className="dark">
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                const theme = localStorage.getItem('styllo-theme') || 'system';
+                const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                const effectiveTheme = theme === 'system' ? systemTheme : theme;
+                document.documentElement.className = effectiveTheme;
+              } catch (e) {
+                document.documentElement.className = 'dark';
+              }
+            `,
+          }}
+        />
+        
         <meta name="application-name" content="StylloBarber" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />

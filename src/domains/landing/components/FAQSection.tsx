@@ -84,8 +84,13 @@ export function FAQSection() {
   }
 
   return (
-    <section className="py-20 bg-slate-800" ref={ref}>
-      <div className="container-custom">
+    <section className="py-20 bg-gray-900 relative overflow-hidden" ref={ref}>
+      {/* Background decorative elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-yellow-500/10 blur-3xl animate-pulse" />
+        <div className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-yellow-400/10 blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+      </div>
+      <div className="container-custom relative z-10">
         {/* Header */}
         <motion.div 
           className="text-center mb-16"
@@ -94,24 +99,24 @@ export function FAQSection() {
           transition={{ duration: 0.8 }}
         >
           <motion.div
-            className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gray-800 mb-6"
+            className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-yellow-500 mb-6"
             initial={{ scale: 0, rotate: -180 }}
             animate={isInView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <HelpCircle className="w-8 h-8 text-accent" />
+            <HelpCircle className="w-8 h-8 text-gray-900" />
           </motion.div>
           
           <motion.h2 
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-black dark:text-white mb-4 max-w-4xl mx-auto leading-tight px-4"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 max-w-4xl mx-auto leading-tight px-4"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            Perguntas Frequentes
+            Perguntas <span className="text-yellow-500">Frequentes</span>
           </motion.h2>
           <motion.p 
-            className="text-lg sm:text-xl text-gray-700 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed px-4 text-no-break"
+            className="text-lg sm:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed px-4 text-no-break"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 0.6 }}
@@ -132,14 +137,14 @@ export function FAQSection() {
               <motion.div
                 key={faq.id}
                 variants={itemVariants}
-                className="bg-gray-50 dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700"
+                className="bg-gray-800 rounded-2xl overflow-hidden border border-gray-700"
               >
                 <button
                   onClick={() => toggleItem(faq.id)}
-                  className="w-full px-6 py-6 text-left flex items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+                  className="w-full px-6 py-6 text-left flex items-center justify-between hover:bg-gray-700 transition-colors duration-200"
                   aria-expanded={openItems.includes(faq.id)}
                 >
-                  <span className="text-lg font-semibold text-black dark:text-white pr-4">
+                  <span className="text-lg font-semibold text-white pr-4">
                     {faq.question}
                   </span>
                   <motion.div
@@ -147,7 +152,7 @@ export function FAQSection() {
                     transition={{ duration: 0.3 }}
                     className="flex-shrink-0"
                   >
-                    <ChevronDown className="w-6 h-6 text-gray-500 dark:text-gray-400" />
+                    <ChevronDown className="w-6 h-6 text-gray-400" />
                   </motion.div>
                 </button>
                 
@@ -161,7 +166,7 @@ export function FAQSection() {
                       className="overflow-hidden"
                     >
                       <div className="px-6 pb-6">
-                        <div className="text-muted dark:text-gray-400 leading-relaxed text-no-break">
+                        <div className="text-gray-300 leading-relaxed text-no-break">
                           {faq.answer}
                         </div>
                       </div>
@@ -180,7 +185,7 @@ export function FAQSection() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, delay: 1.0 }}
         >
-          <div className="bg-gradient-to-r from-gray-800 to-gray-700 rounded-2xl p-8 text-white">
+          <div className="bg-yellow-500 rounded-2xl p-8 text-gray-900">
             <h3 className="text-2xl font-bold mb-4">
               Ainda tem dúvidas?
             </h3>
@@ -189,14 +194,14 @@ export function FAQSection() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.button
-                className="bg-accent text-primary px-8 py-3 rounded-xl font-semibold hover:opacity-90 transition-all duration-300"
+                className="bg-gray-900 text-white px-8 py-3 rounded-xl font-semibold hover:bg-gray-800 transition-all duration-300"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 Falar com Especialista
               </motion.button>
               <motion.button
-                className="border-2 border-white text-white px-8 py-3 rounded-xl font-semibold hover:bg-white hover:text-primary transition-colors duration-300"
+                className="border-2 border-gray-900 text-gray-900 px-8 py-3 rounded-xl font-semibold hover:bg-gray-900 hover:text-white transition-colors duration-300"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >

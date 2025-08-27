@@ -53,6 +53,9 @@ class AuthService {
       // Salvar sessão local
       this.saveUserSession(authUser)
 
+      // Aguardar um momento para garantir que o localStorage foi atualizado
+      await new Promise(resolve => setTimeout(resolve, 10))
+
       return authUser
     } catch (error) {
       console.error('Erro no login:', error)
