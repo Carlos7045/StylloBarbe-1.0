@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Clock, User, Scissors, Phone, CheckCircle, XCircle, AlertCircle } from 'lucide-react'
+import { Clock, User, Scissors, Phone, CheckCircle, XCircle, AlertCircle, Calendar } from 'lucide-react'
 import { Button } from '@/shared/components/ui/Button'
 import { AgendamentoResumo } from '../../types/admin-dashboard'
 

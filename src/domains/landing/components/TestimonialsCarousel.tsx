@@ -91,7 +91,7 @@ export function TestimonialsCarousel() {
   }
 
   return (
-    <section className="py-20 bg-black" ref={ref}>
+    <section className="py-20 bg-slate-900" ref={ref}>
       <div className="container-custom">
         {/* Header */}
         <motion.div 

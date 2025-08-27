@@ -3,7 +3,7 @@ import { useAuthContext } from '../components/AuthProvider'
 import { AuthUser, UserRole } from '@/shared/types'
 
 export function useUser() {
-  const { user, isAuthenticated } = useAuthContext()
+  const { user, isAuthenticated, logout } = useAuthContext()
 
   // Verifica se o usuário tem uma role específica
   const hasRole = (role: UserRole): boolean => {
@@ -51,6 +51,9 @@ export function useUser() {
     userEmail: user?.email,
     userRole: user?.role,
     barbeariaId: user?.barbeariaId,
+    
+    // Ações de autenticação
+    logout,
     
     // Verificações de permissão
     hasRole,

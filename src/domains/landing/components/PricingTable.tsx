@@ -126,7 +126,7 @@ export function PricingTable() {
   }
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-800 via-gray-700 to-gray-600" ref={ref}>
+    <section className="py-20 bg-slate-800" ref={ref}>
       <div className="container-custom">
         {/* Header */}
         <motion.div 

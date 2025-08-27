@@ -27,7 +27,7 @@ export default function Home() {
       <BenefitsGrid />
 
       {/* PWA Benefits Section */}
-      <section className="py-20 bg-gradient-to-br from-gray-800 via-gray-700 to-gray-600 pwa-section">
+      <section className="py-20 bg-slate-900 pwa-section">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">

@@ -24,7 +24,7 @@ export function CTASection() {
   ]
 
   return (
-    <section className="py-20 bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 text-white relative overflow-hidden" ref={ref}>
+    <section className="py-20 bg-slate-900 text-white relative overflow-hidden" ref={ref}>
       {/* Background decorative elements */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-accent-500 blur-3xl animate-pulse" />

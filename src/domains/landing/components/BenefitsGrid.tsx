@@ -101,7 +101,7 @@ export function BenefitsGrid() {
   }
 
   return (
-    <section className="py-20 bg-black benefits-section" ref={ref}>
+    <section className="py-20 bg-slate-800 benefits-section" ref={ref}>
       <div className="container-custom">
         {/* Header Section */}
         <motion.div
