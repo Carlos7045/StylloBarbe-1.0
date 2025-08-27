@@ -102,7 +102,7 @@ export function ServiceSelector({
             <Button
               key={categoria}
               onClick={() => handleFiltroCategoria(categoria as any)}
-              variant={isActive ? "default" : "outline"}
+              variant={isActive ? "primary" : "outline"}
               className={isActive 
                 ? "bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold"
                 : "border-gray-600 text-gray-300 hover:bg-gray-700"

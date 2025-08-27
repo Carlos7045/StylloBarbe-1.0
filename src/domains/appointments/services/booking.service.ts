@@ -11,40 +11,60 @@ import {
 const mockBarbearias: Barbearia[] = [
   {
     id: 'barbearia-1',
-    nome: 'Styllo Barber Premium',
+    nome: 'Styllo Barber Premium - Centro',
     endereco: 'Rua das Flores, 123 - Centro, São Paulo - SP',
     telefone: '(11) 99999-9999',
-    email: 'contato@styllobarber.com',
+    email: 'centro@styllobarber.com',
     logo: '/images/barbershop-1.jpg',
     ativa: true,
     avaliacao: 4.8,
     totalAvaliacoes: 127,
     distancia: 2.5,
-    tempoEstimado: 15
+    tempoEstimado: 15,
+    redeId: 'rede-styllo',
+    adminId: 'admin-styllo-1'
   },
   {
     id: 'barbearia-2',
-    nome: 'Barber Shop Clássico',
+    nome: 'Styllo Barber Premium - Paulista',
     endereco: 'Av. Paulista, 456 - Bela Vista, São Paulo - SP',
     telefone: '(11) 88888-8888',
-    email: 'contato@barbershopclassico.com',
+    email: 'paulista@styllobarber.com',
     ativa: true,
     avaliacao: 4.6,
     totalAvaliacoes: 89,
     distancia: 5.2,
-    tempoEstimado: 25
+    tempoEstimado: 25,
+    redeId: 'rede-styllo',
+    adminId: 'admin-styllo-1'
   },
   {
     id: 'barbearia-3',
-    nome: 'Modern Cut Studio',
+    nome: 'Styllo Barber Premium - Augusta',
     endereco: 'Rua Augusta, 789 - Consolação, São Paulo - SP',
     telefone: '(11) 77777-7777',
-    email: 'contato@moderncut.com',
+    email: 'augusta@styllobarber.com',
     ativa: true,
     avaliacao: 4.9,
     totalAvaliacoes: 203,
     distancia: 3.8,
-    tempoEstimado: 20
+    tempoEstimado: 20,
+    redeId: 'rede-styllo',
+    adminId: 'admin-styllo-1'
+  },
+  {
+    id: 'barbearia-4',
+    nome: 'Modern Cut Studio - Vila Madalena',
+    endereco: 'Rua Harmonia, 321 - Vila Madalena, São Paulo - SP',
+    telefone: '(11) 66666-6666',
+    email: 'contato@moderncut.com',
+    ativa: true,
+    avaliacao: 4.7,
+    totalAvaliacoes: 156,
+    distancia: 7.1,
+    tempoEstimado: 30,
+    redeId: 'rede-modern',
+    adminId: 'admin-modern-1'
   }
 ]
 
@@ -144,6 +164,16 @@ export class BookingService {
     let barbearias = [...mockBarbearias]
     
     if (filtros) {
+      // Filtrar por rede específica (prioridade máxima)
+      if (filtros.redeId) {
+        barbearias = barbearias.filter(b => b.redeId === filtros.redeId)
+      }
+      
+      // Filtrar por admin específico
+      if (filtros.adminId) {
+        barbearias = barbearias.filter(b => b.adminId === filtros.adminId)
+      }
+      
       if (filtros.busca) {
         const busca = filtros.busca.toLowerCase()
         barbearias = barbearias.filter(b => 

@@ -10,6 +10,8 @@ export interface Barbearia {
   totalAvaliacoes?: number
   distancia?: number // em km
   tempoEstimado?: number // em minutos
+  redeId?: string // ID da rede/grupo de barbearias
+  adminId?: string // ID do admin que gerencia esta barbearia
 }
 
 export interface ServicoBooking {
@@ -39,6 +41,8 @@ export interface FiltrosBarbearia {
   bairro?: string
   distanciaMaxima?: number
   avaliacaoMinima?: number
+  redeId?: string // Filtrar por rede específica
+  adminId?: string // Filtrar por admin específico
 }
 
 export interface FiltrosServico {

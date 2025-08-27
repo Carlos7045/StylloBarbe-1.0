@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { useUser } from '@/domains/auth'
 import { ProtectedRoute } from '@/domains/auth'
 import { DashboardLayout } from '@/shared/components/layout'
@@ -28,6 +29,7 @@ export default function ClientePage() {
 
 function ClienteDashboard() {
   const { user } = useUser()
+  const router = useRouter()
   const [abaSelecionada, setAbaSelecionada] = useState<'dashboard' | 'agendamentos' | 'historico' | 'favoritos' | 'perfil'>('dashboard')
   
   // Usar o ID do usuário logado - em produção viria do contexto de auth
@@ -67,8 +69,8 @@ function ClienteDashboard() {
   ]
 
   const handleAgendar = (id?: string) => {
-    // Implementar navegação para página de agendamento
-    console.log('Navegar para agendamento', id)
+    // Navegar para a página de agendamento
+    router.push('/agendamento')
   }
 
   return (
