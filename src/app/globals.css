@@ -301,23 +301,58 @@ body {
 .shadow-lg { box-shadow: var(--shadow-lg); }
 .shadow-xl { box-shadow: var(--shadow-xl); }
 
-/* Tema dark - classes utilitárias */
-.dark {
-  --color-gray-50: var(--color-dark-50);
-  --color-gray-100: var(--color-dark-100);
-  --color-gray-200: var(--color-dark-200);
-  --color-gray-300: var(--color-dark-300);
-  --color-gray-400: var(--color-dark-400);
-  --color-gray-500: var(--color-dark-500);
-  --color-gray-600: var(--color-dark-600);
-  --color-gray-700: var(--color-dark-700);
-  --color-gray-800: var(--color-dark-800);
-  --color-gray-900: var(--color-dark-900);
+/* === SISTEMA DE TEMAS STYLLO BARBER === */
+
+/* Variáveis do tema claro (padrão) */
+:root {
+  /* Backgrounds */
+  --bg-primary: #f3f4f6;        /* Fundo geral cinza claro */
+  --bg-secondary: #ffffff;       /* Cards e sidebar brancos */
+  --bg-tertiary: #f1f5f9;        /* Fundo alternativo com mais contraste */
+  --bg-hover: #e5e7eb;          /* Hover mais visível */
+  
+  /* Textos - Melhor contraste para tema claro */
+  --text-primary: #000000;       /* Texto principal preto puro */
+  --text-secondary: #1f2937;     /* Texto secundário escuro */
+  --text-tertiary: #374151;      /* Texto terciário escuro */
+  --text-muted: #4b5563;         /* Texto desabilitado mais escuro */
+  
+  /* Bordas */
+  --border-primary: #e5e7eb;     /* Bordas principais */
+  --border-secondary: #d1d5db;   /* Bordas secundárias */
+  --border-hover: #9ca3af;       /* Bordas em hover */
+  
+  /* Amarelo (mantém em ambos os temas) */
+  --accent-primary: #f59e0b;     /* Amarelo principal */
+  --accent-hover: #d97706;       /* Amarelo hover */
+  --accent-text: #92400e;        /* Texto sobre amarelo */
 }
 
-.dark body {
-  background-color: #18181b;
-  color: #fafafa;
+/* Variáveis do tema escuro */
+.dark {
+  /* Backgrounds */
+  --bg-primary: #000000;         /* Fundo preto puro */
+  --bg-secondary: #1f2937;       /* Cards cinza escuro */
+  --bg-tertiary: #111827;        /* Fundo alternativo */
+  --bg-hover: #374155;           /* Hover */
+  
+  /* Textos */
+  --text-primary: #ffffff;       /* Texto principal branco */
+  --text-secondary: #d1d5db;     /* Texto secundário */
+  --text-tertiary: #9ca3af;      /* Texto terciário */
+  --text-muted: #6b7280;         /* Texto desabilitado */
+  
+  /* Bordas */
+  --border-primary: #374151;     /* Bordas principais */
+  --border-secondary: #4b5563;   /* Bordas secundárias */
+  --border-hover: #6b7280;       /* Bordas em hover */
+}
+
+/* Aplicar as variáveis no body */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* Animações e transições */
@@ -368,22 +403,44 @@ body {
   hyphens: none;
 }
 
-/* Forçar contraste máximo para títulos principais */
+/* === CLASSES UTILITÁRIAS PARA TEMAS === */
+
+/* Backgrounds usando variáveis CSS */
+.bg-theme-primary { background-color: var(--bg-primary); }
+.bg-theme-secondary { background-color: var(--bg-secondary); }
+.bg-theme-tertiary { background-color: var(--bg-tertiary); }
+.hover\:bg-theme-hover:hover { background-color: var(--bg-hover); }
+
+/* Textos usando variáveis CSS */
+.text-theme-primary { color: var(--text-primary); }
+.text-theme-secondary { color: var(--text-secondary); }
+.text-theme-tertiary { color: var(--text-tertiary); }
+.text-theme-muted { color: var(--text-muted); }
+
+/* Bordas usando variáveis CSS */
+.border-theme-primary { border-color: var(--border-primary); }
+.border-theme-secondary { border-color: var(--border-secondary); }
+.hover\:border-theme-hover:hover { border-color: var(--border-hover); }
+
+/* Botão primário (amarelo) */
+.btn-primary {
+  background-color: var(--accent-primary);
+  color: var(--accent-text);
+  transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+}
+
+/* Títulos com contraste adequado */
 h1, h2, h3, h4, h5, h6 {
-  color: #000000 !important;
+  color: var(--text-primary);
 }
 
-.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
-  color: #ffffff !important;
-}
-
-/* Forçar contraste para parágrafos em seções claras */
-section:not(.bg-gray-900):not(.bg-primary-900) p {
-  color: #374151 !important;
-}
-
-.dark section p {
-  color: #d1d5db !important;
+/* Parágrafos com contraste adequado */
+p {
+  color: var(--text-secondary);
 }
 
 /* Melhor controle de quebra de linha para parágrafos */
@@ -401,6 +458,66 @@ h1, h2, h3, h4, h5, h6 {
 
 /* === CORREÇÃO FORÇADA DE CONTRASTE === */
 /* Estas regras garantem contraste máximo independente de outras configurações */
+
+/* Correções específicas para componentes do dashboard */
+.text-theme-primary { 
+  color: var(--text-primary) !important; 
+}
+
+.text-theme-secondary { 
+  color: var(--text-secondary) !important; 
+}
+
+.text-theme-tertiary { 
+  color: var(--text-tertiary) !important; 
+}
+
+.text-theme-muted { 
+  color: var(--text-muted) !important; 
+}
+
+/* Forçar contraste em ícones pequenos */
+.lucide {
+  color: inherit;
+}
+
+/* Melhorar contraste de textos em cards */
+.card-text-primary {
+  color: #000000 !important;
+}
+
+.card-text-secondary {
+  color: #374151 !important;
+}
+
+.card-text-muted {
+  color: #4b5563 !important;
+}
+
+/* Forçar melhor contraste para textos pequenos */
+.text-xs {
+  color: var(--text-secondary) !important;
+}
+
+.text-sm {
+  color: var(--text-secondary) !important;
+}
+
+/* Melhorar contraste de ícones pequenos */
+.h-4.w-4 {
+  color: var(--text-tertiary) !important;
+}
+
+/* Garantir que textos de descrição tenham bom contraste */
+p.text-sm {
+  color: var(--text-secondary) !important;
+}
+
+/* Melhorar contraste de labels e textos auxiliares */
+.text-xs.text-theme-secondary,
+.text-xs.text-theme-tertiary {
+  color: var(--text-secondary) !important;
+}
 
 /* Títulos principais - preto puro em fundo claro */
 .landing-title {

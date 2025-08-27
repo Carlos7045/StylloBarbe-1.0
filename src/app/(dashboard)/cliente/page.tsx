@@ -1,9 +1,25 @@
 'use client'
 
-// Dashboard do Cliente
+import { useState } from 'react'
 import { useUser } from '@/domains/auth'
 import { ProtectedRoute } from '@/domains/auth'
 import { Button } from '@/shared/components/ui/Button'
+import { useCliente } from '@/domains/users/hooks/useCliente'
+import { ClientMetrics } from '@/domains/users/components/cliente/ClientMetrics'
+import { UpcomingAppointments } from '@/domains/users/components/cliente/UpcomingAppointments'
+import { AppointmentHistory } from '@/domains/users/components/cliente/AppointmentHistory'
+import { ClientProfile } from '@/domains/users/components/cliente/ClientProfile'
+import { FavoriteBarbers } from '@/domains/users/components/cliente/FavoriteBarbers'
+import { FavoriteServices } from '@/domains/users/components/cliente/FavoriteServices'
+import { 
+  Calendar, 
+  User, 
+  Heart, 
+  History,
+  Settings,
+  Plus
+} from 'lucide-react'
+import { ThemeDropdown } from '@/shared/components/ui/ThemeDropdown'
 
 export default function ClientePage() {
   return (
@@ -15,117 +31,216 @@ export default function ClientePage() {
 
 function ClienteDashboard() {
   const { user, logout } = useUser()
+  const [abaSelecionada, setAbaSelecionada] = useState<'dashboard' | 'agendamentos' | 'historico' | 'favoritos' | 'perfil'>('dashboard')
+  
+  // Usar o ID do usuário logado - em produção viria do contexto de auth
+  const clienteId = user?.id || 'cliente1'
+  
+  // Temporariamente comentar o hook para testar
+  const {
+    perfil,
+    agendamentosFuturos,
+    historicoAgendamentos,
+    barbeirosFavoritos,
+    servicosFavoritos,
+    metricas,
+    carregandoPerfil,
+    carregandoAgendamentos,
+    carregandoBarbeirosFavoritos,
+    carregandoServicosFavoritos,
+    carregandoMetricas,
+    atualizandoPerfil,
+    reagendando,
+    cancelando,
+    alterandoBarbeiroFavorito,
+    alterandoServicoFavorito,
+    atualizarPerfil,
+    reagendarAgendamento,
+    cancelarAgendamento,
+    toggleBarbeiroFavorito,
+    toggleServicoFavorito
+  } = useCliente(clienteId)
+
+  const abas = [
+    { id: 'dashboard', nome: 'Dashboard', icone: Calendar },
+    { id: 'agendamentos', nome: 'Agendamentos', icone: Calendar },
+    { id: 'historico', nome: 'Histórico', icone: History },
+    { id: 'favoritos', nome: 'Favoritos', icone: Heart },
+    { id: 'perfil', nome: 'Perfil', icone: User }
+  ]
+
+  const handleAgendar = (id?: string) => {
+    // Implementar navegação para página de agendamento
+    console.log('Navegar para agendamento', id)
+  }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex justify-between items-center mb-6">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">
-                Meus Agendamentos
+    <div className="flex min-h-screen bg-theme-primary">
+      {/* Sidebar */}
+      <div className="w-64 bg-theme-secondary border-r border-theme-primary">
+        <div className="p-6">
+          <div className="flex items-center space-x-2 mb-8">
+            <div className="w-8 h-8 bg-amber-400 rounded flex items-center justify-center">
+              <span className="text-slate-900 font-bold text-sm">S</span>
+            </div>
+            <span className="text-theme-primary font-bold">STYLLOBARBER</span>
+          </div>
+          
+          <nav className="space-y-2">
+            {abas.map((aba) => {
+              const Icone = aba.icone
+              return (
+                <button
+                  key={aba.id}
+                  onClick={() => setAbaSelecionada(aba.id as any)}
+                  className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-colors ${
+                    abaSelecionada === aba.id
+                      ? 'btn-primary'
+                      : 'text-theme-secondary hover:bg-theme-hover hover:text-theme-primary'
+                  }`}
+                >
+                  <Icone className="h-5 w-5" />
+                  <span className="font-medium">{aba.nome}</span>
+                </button>
+              )
+            })}
+          </nav>
+        </div>
+        
+        {/* User Info at Bottom */}
+        <div className="absolute bottom-0 w-64 p-6 border-t border-theme-primary">
+          <div className="flex items-center space-x-3">
+            <div className="w-8 h-8 bg-theme-tertiary rounded-full flex items-center justify-center">
+              <User className="h-4 w-4 text-theme-secondary" />
+            </div>
+            <div className="flex-1">
+              <p className="text-theme-primary text-sm font-medium">{user?.nome || 'Cliente'}</p>
+              <p className="text-theme-tertiary text-xs">Cliente</p>
+            </div>
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={logout}
+              className="text-theme-tertiary hover:text-theme-primary"
+            >
+              <Settings className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="flex-1 overflow-auto">
+        {/* Header */}
+        <div className="bg-theme-secondary border-b border-theme-primary px-8 py-6">
+          <div className="flex justify-between items-center">
+            <div className="text-center flex-1">
+              <h1 className="text-2xl font-bold text-theme-primary mb-2">
+                Dashboard do Cliente
               </h1>
-              <p className="text-gray-600">
-                Bem-vindo, {user?.nome}!
+              <p className="text-theme-secondary">
+                Bem-vindo, {user?.nome}! Visão geral das suas atividades de hoje.
               </p>
             </div>
             
-            <div className="flex gap-3">
-              <Button variant="primary">
+            <div className="flex items-center space-x-3">
+              <ThemeDropdown size="sm" variant="outline" />
+              <Button 
+                variant="primary"
+                onClick={() => handleAgendar()}
+              >
+                <Plus className="h-4 w-4 mr-2" />
                 Novo Agendamento
               </Button>
-              <Button 
-                variant="outline" 
-                onClick={logout}
-              >
-                Sair
-              </Button>
             </div>
           </div>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-blue-50 p-4 rounded-lg">
-              <h3 className="font-semibold text-blue-900">Próximo Agendamento</h3>
-              <p className="text-lg font-bold text-blue-600">Amanhã 15:00</p>
-              <p className="text-sm text-blue-700">Barbearia Central</p>
-            </div>
-            
-            <div className="bg-green-50 p-4 rounded-lg">
-              <h3 className="font-semibold text-green-900">Total de Cortes</h3>
-              <p className="text-2xl font-bold text-green-600">24</p>
-            </div>
-            
-            <div className="bg-purple-50 p-4 rounded-lg">
-              <h3 className="font-semibold text-purple-900">Barbeiro Favorito</h3>
-              <p className="text-lg font-bold text-purple-600">João</p>
-            </div>
-          </div>
+        {/* Conteúdo das Abas */}
+        <div className="p-8 space-y-8 bg-theme-primary">
+          {abaSelecionada === 'dashboard' && (
+            <>
+              {/* Métricas */}
+              {metricas && (
+                <ClientMetrics 
+                  metricas={metricas} 
+                  carregando={carregandoMetricas} 
+                />
+              )}
 
-          <div className="mt-8">
-            <h2 className="text-lg font-semibold mb-4">Histórico de Agendamentos</h2>
-            <div className="space-y-3">
-              {[
-                { 
-                  data: '15/01/2025', 
-                  hora: '15:00', 
-                  barbearia: 'Barbearia Central', 
-                  barbeiro: 'João Silva',
-                  servico: 'Corte + Barba', 
-                  valor: 'R$ 45,00',
-                  status: 'agendado' 
-                },
-                { 
-                  data: '08/01/2025', 
-                  hora: '14:30', 
-                  barbearia: 'Barbearia Central', 
-                  barbeiro: 'João Silva',
-                  servico: 'Corte', 
-                  valor: 'R$ 30,00',
-                  status: 'concluido' 
-                },
-                { 
-                  data: '22/12/2024', 
-                  hora: '16:00', 
-                  barbearia: 'Barbearia Central', 
-                  barbeiro: 'Pedro Costa',
-                  servico: 'Corte + Barba', 
-                  valor: 'R$ 45,00',
-                  status: 'concluido' 
-                },
-              ].map((agendamento, index) => (
-                <div key={index} className="border rounded-lg p-4">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <p className="font-medium">{agendamento.data} às {agendamento.hora}</p>
-                      <p className="text-sm text-gray-600">{agendamento.barbearia} - {agendamento.barbeiro}</p>
-                      <p className="text-sm text-gray-600">{agendamento.servico}</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="font-medium">{agendamento.valor}</p>
-                      <span className={`px-2 py-1 rounded text-xs font-medium ${
-                        agendamento.status === 'concluido' 
-                          ? 'bg-green-100 text-green-800' 
-                          : 'bg-blue-100 text-blue-800'
-                      }`}>
-                        {agendamento.status === 'concluido' ? 'Concluído' : 'Agendado'}
-                      </span>
-                    </div>
-                  </div>
-                  
-                  {agendamento.status === 'agendado' && (
-                    <div className="mt-3 flex gap-2">
-                      <Button variant="outline" size="sm">
-                        Reagendar
-                      </Button>
-                      <Button variant="outline" size="sm">
-                        Cancelar
-                      </Button>
-                    </div>
-                  )}
-                </div>
-              ))}
+              {/* Próximos Agendamentos */}
+              <UpcomingAppointments
+                agendamentos={agendamentosFuturos}
+                carregando={carregandoAgendamentos}
+                onReagendar={reagendarAgendamento}
+                onCancelar={cancelarAgendamento}
+                reagendando={reagendando}
+                cancelando={cancelando}
+              />
+
+              {/* Favoritos Resumo */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <FavoriteBarbers
+                  barbeiros={barbeirosFavoritos.slice(0, 2)}
+                  carregando={carregandoBarbeirosFavoritos}
+                  onToggleFavorito={toggleBarbeiroFavorito}
+                  onAgendar={handleAgendar}
+                  alterandoFavorito={alterandoBarbeiroFavorito}
+                />
+                <FavoriteServices
+                  servicos={servicosFavoritos.slice(0, 3)}
+                  carregando={carregandoServicosFavoritos}
+                  onToggleFavorito={toggleServicoFavorito}
+                  onAgendar={handleAgendar}
+                  alterandoFavorito={alterandoServicoFavorito}
+                />
+              </div>
+            </>
+          )}
+
+          {abaSelecionada === 'agendamentos' && (
+            <UpcomingAppointments
+              agendamentos={agendamentosFuturos}
+              carregando={carregandoAgendamentos}
+              onReagendar={reagendarAgendamento}
+              onCancelar={cancelarAgendamento}
+              reagendando={reagendando}
+              cancelando={cancelando}
+            />
+          )}
+
+          {abaSelecionada === 'historico' && (
+            <AppointmentHistory
+              agendamentos={historicoAgendamentos}
+              carregando={carregandoAgendamentos}
+            />
+          )}
+
+          {abaSelecionada === 'favoritos' && (
+            <div className="space-y-8">
+              <FavoriteBarbers
+                barbeiros={barbeirosFavoritos}
+                carregando={carregandoBarbeirosFavoritos}
+                onToggleFavorito={toggleBarbeiroFavorito}
+                onAgendar={handleAgendar}
+                alterandoFavorito={alterandoBarbeiroFavorito}
+              />
+              <FavoriteServices
+                servicos={servicosFavoritos}
+                carregando={carregandoServicosFavoritos}
+                onToggleFavorito={toggleServicoFavorito}
+                onAgendar={handleAgendar}
+                alterandoFavorito={alterandoServicoFavorito}
+              />
             </div>
-          </div>
+          )}
+
+          {abaSelecionada === 'perfil' && perfil && (
+            <ClientProfile
+              perfil={perfil}
+              onUpdateProfile={atualizarPerfil}
+            />
+          )}
         </div>
       </div>
     </div>

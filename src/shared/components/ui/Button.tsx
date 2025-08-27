@@ -4,25 +4,25 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '../../utils/cn'
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium transition-smooth focus-ring disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
         primary:
-          'bg-primary text-white hover:opacity-90 active:opacity-95 shadow-md hover:shadow-lg',
+          'btn-primary shadow-sm hover:shadow-md',
         secondary:
-          'bg-gray-100 text-gray-900 hover:bg-gray-200 active:bg-gray-300 border border-gray-200',
+          'bg-theme-tertiary text-theme-primary hover:bg-theme-hover focus:ring-amber-400',
         outline:
-          'border-2 border-primary bg-transparent text-primary hover:bg-primary-light active:bg-primary-light',
+          'border border-theme-primary bg-transparent text-theme-secondary hover:bg-theme-hover focus:ring-amber-400',
         ghost:
-          'text-primary hover:bg-primary-light active:bg-primary-light',
+          'bg-transparent text-theme-secondary hover:bg-theme-hover focus:ring-amber-400',
         accent:
-          'bg-accent text-primary-900 hover:opacity-90 active:opacity-95 shadow-md hover:shadow-lg',
+          'btn-primary shadow-sm hover:shadow-md',
         destructive:
-          'bg-error text-white hover:opacity-90 active:opacity-95 shadow-md hover:shadow-lg',
+          'bg-red-500 text-white hover:bg-red-600 focus:ring-red-500 shadow-sm hover:shadow-md',
       },
       size: {
-        sm: 'h-9 px-3 text-xs rounded-md',
+        sm: 'h-8 px-3 text-xs rounded-md',
         md: 'h-10 px-4 py-2',
         lg: 'h-12 px-8 text-base',
         icon: 'h-10 w-10',

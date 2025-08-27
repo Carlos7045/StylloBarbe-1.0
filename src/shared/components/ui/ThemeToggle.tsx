@@ -1,80 +1,92 @@
 'use client'
 
-import * as React from 'react'
 import { Moon, Sun, Monitor } from 'lucide-react'
 import { Button } from './Button'
-import { useTheme } from '../providers/ThemeProvider'
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalTitle,
-  ModalTrigger,
-} from './Modal'
+import { useTheme } from '@/shared/components/providers/ThemeProvider'
 
-export function ThemeToggle() {
-  const { theme, setTheme } = useTheme()
-
-  return (
-    <Modal>
-      <ModalTrigger asChild>
-        <Button variant="ghost" size="icon" className="h-9 w-9">
-          <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Alternar tema</span>
-        </Button>
-      </ModalTrigger>
-      <ModalContent className="sm:max-w-[300px]">
-        <ModalHeader>
-          <ModalTitle>Escolher tema</ModalTitle>
-        </ModalHeader>
-        <div className="grid gap-2">
-          <Button
-            variant={theme === 'light' ? 'primary' : 'ghost'}
-            className="justify-start"
-            onClick={() => setTheme('light')}
-          >
-            <Sun className="mr-2 h-4 w-4" />
-            Claro
-          </Button>
-          <Button
-            variant={theme === 'dark' ? 'primary' : 'ghost'}
-            className="justify-start"
-            onClick={() => setTheme('dark')}
-          >
-            <Moon className="mr-2 h-4 w-4" />
-            Escuro
-          </Button>
-          <Button
-            variant={theme === 'system' ? 'primary' : 'ghost'}
-            className="justify-start"
-            onClick={() => setTheme('system')}
-          >
-            <Monitor className="mr-2 h-4 w-4" />
-            Sistema
-          </Button>
-        </div>
-      </ModalContent>
-    </Modal>
-  )
+interface ThemeToggleProps {
+  size?: 'sm' | 'md' | 'lg'
+  variant?: 'ghost' | 'outline'
+  showLabel?: boolean
+  showSystem?: boolean
 }
 
-// Versão simples que apenas alterna entre claro e escuro
-export function SimpleThemeToggle() {
-  const { toggleTheme, resolvedTheme } = useTheme()
+export function ThemeToggle({ 
+  size = 'md', 
+  variant = 'ghost',
+  showLabel = false,
+  showSystem = false
+}: ThemeToggleProps) {
+  const { theme, resolvedTheme, setTheme, toggleTheme } = useTheme()
 
+  if (showSystem) {
+    // Versão com 3 opções: claro, escuro, sistema
+    const getNextTheme = () => {
+      switch (theme) {
+        case 'light': return 'dark'
+        case 'dark': return 'system'
+        case 'system': return 'light'
+        default: return 'light'
+      }
+    }
+
+    const handleClick = () => {
+      setTheme(getNextTheme())
+    }
+
+    const getIcon = () => {
+      switch (theme) {
+        case 'light':
+          return <Sun className="h-4 w-4" />
+        case 'dark':
+          return <Moon className="h-4 w-4" />
+        case 'system':
+          return <Monitor className="h-4 w-4" />
+        default:
+          return <Sun className="h-4 w-4" />
+      }
+    }
+
+    const getLabel = () => {
+      switch (theme) {
+        case 'light': return 'Claro'
+        case 'dark': return 'Escuro'
+        case 'system': return 'Sistema'
+        default: return 'Claro'
+      }
+    }
+
+    return (
+      <Button
+        variant={variant}
+        size={size}
+        onClick={handleClick}
+        title={`Tema atual: ${getLabel()}. Clique para alternar.`}
+      >
+        {getIcon()}
+        {showLabel && (
+          <span className="ml-2">{getLabel()}</span>
+        )}
+      </Button>
+    )
+  }
+
+  // Versão simples: apenas claro/escuro
   return (
     <Button
-      variant="ghost"
-      size="icon"
+      variant={variant}
+      size={size}
       onClick={toggleTheme}
-      className="h-9 w-9"
+      className="relative"
+      title={`Alternar para tema ${resolvedTheme === 'light' ? 'escuro' : 'claro'}`}
     >
       <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
       <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-      <span className="sr-only">
-        {resolvedTheme === 'light' ? 'Ativar modo escuro' : 'Ativar modo claro'}
-      </span>
+      {showLabel && (
+        <span className="ml-2">
+          {resolvedTheme === 'light' ? 'Escuro' : 'Claro'}
+        </span>
+      )}
     </Button>
   )
 }

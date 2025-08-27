@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/shared/components/providers/ThemeProvider'
+import { QueryProvider } from '@/shared/components/providers/QueryProvider'
 import { AuthProvider } from '@/domains/auth'
 
 
@@ -134,9 +135,11 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} font-primary antialiased`}>
         <ThemeProvider defaultTheme="system" storageKey="styllo-theme">
-          <AuthProvider>
-            {children}
-          </AuthProvider>
+          <QueryProvider>
+            <AuthProvider>
+              {children}
+            </AuthProvider>
+          </QueryProvider>
         </ThemeProvider>
       </body>
     </html>

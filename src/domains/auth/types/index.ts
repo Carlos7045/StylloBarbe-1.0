@@ -10,6 +10,7 @@ export interface RegisterData {
   nome: string
   email: string
   telefone: string
+  cpf?: string
   senha: string
   confirmarSenha: string
   role: UserRole

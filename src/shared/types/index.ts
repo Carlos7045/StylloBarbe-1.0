@@ -6,9 +6,11 @@ export interface AuthUser {
   id: string
   email: string
   nome: string
+  telefone?: string
+  cpf?: string
   role: UserRole
   barbeariaId?: string
-  avatar?: string
+  avatarUrl?: string
 }
 
 export interface Barbearia {
