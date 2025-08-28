@@ -14,7 +14,7 @@ export const theme = {
       800: '#92400e',
       900: '#78350f',
     },
-    
+
     // Tema escuro
     dark: {
       bg: {
@@ -36,7 +36,7 @@ export const theme = {
         hover: '#64748b',      // slate-500
       }
     },
-    
+
     // Tema claro
     light: {
       bg: {
@@ -58,7 +58,7 @@ export const theme = {
         hover: '#94a3b8',      // slate-400
       }
     },
-    
+
     // Cores semânticas
     semantic: {
       success: {
@@ -83,7 +83,7 @@ export const theme = {
       }
     }
   },
-  
+
   // Espaçamentos
   spacing: {
     xs: '0.5rem',    // 8px
@@ -93,7 +93,7 @@ export const theme = {
     xl: '2rem',      // 32px
     '2xl': '3rem',   // 48px
   },
-  
+
   // Bordas
   borderRadius: {
     sm: '0.375rem',  // 6px
@@ -101,7 +101,7 @@ export const theme = {
     lg: '0.75rem',   // 12px
     xl: '1rem',      // 16px
   },
-  
+
   // Sombras
   shadows: {
     sm: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
@@ -118,18 +118,18 @@ export const themeClasses = {
   'bg-tertiary': 'bg-theme-tertiary',
   'bg-card': 'bg-theme-secondary',
   'bg-hover': 'hover:bg-theme-hover',
-  
+
   // Textos
   'text-primary': 'text-theme-primary',
   'text-secondary': 'text-theme-secondary',
   'text-tertiary': 'text-theme-tertiary',
   'text-muted': 'text-theme-muted',
-  
+
   // Bordas
   'border-primary': 'border-theme-primary',
   'border-secondary': 'border-theme-secondary',
   'border-hover': 'hover:border-theme-hover',
-  
+
   // Estados
   'focus-ring': 'focus:ring-2 focus:ring-amber-500 focus:border-transparent',
 }
@@ -142,19 +142,19 @@ export const lightTheme = themeClasses
 export const baseComponents = {
   // Card
   card: 'rounded-lg border border-theme-primary bg-theme-secondary shadow-sm transition-colors',
-  
+
   // Button Primary
   buttonPrimary: 'btn-primary inline-flex items-center justify-center rounded-md text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none',
-  
+
   // Button Secondary
   buttonSecondary: 'inline-flex items-center justify-center rounded-md text-sm font-medium border border-theme-primary text-theme-secondary hover:bg-theme-hover transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none',
-  
+
   // Input
   input: 'w-full rounded-md border border-theme-primary bg-theme-secondary text-theme-primary px-3 py-2 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent placeholder:text-theme-muted',
-  
+
   // Badge
   badge: 'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-theme-tertiary text-theme-secondary',
-  
+
   // Loading
   loading: 'animate-pulse bg-theme-tertiary',
 }
