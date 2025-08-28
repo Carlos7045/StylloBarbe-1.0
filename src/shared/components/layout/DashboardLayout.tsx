@@ -42,7 +42,7 @@ export function DashboardLayout({
   className
 }: DashboardLayoutProps) {
   return (
-    <div className={cn("flex min-h-screen bg-theme-primary", className)}>
+    <div className={cn("flex h-screen bg-theme-primary", className)}>
       {/* Sidebar */}
       <DashboardSidebar
         items={sidebarItems}

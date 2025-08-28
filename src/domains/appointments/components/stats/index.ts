@@ -1,0 +1,5 @@
+export { BarberOccupancyWidget } from './BarberOccupancyWidget'
+export { RevenueMetricsWidget } from './RevenueMetricsWidget'
+export { PendingAlertsWidget } from './PendingAlertsWidget'
+export { PerformanceChartsWidget } from './PerformanceChartsWidget'
+export { RealTimeStatsPanel } from './RealTimeStatsPanel'

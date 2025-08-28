@@ -229,4 +229,123 @@ export class AppointmentsService {
     
     mockAppointments.splice(index, 1)
   }
+
+  // Método para buscar taxa de ocupação por barbeiro
+  static async getBarberOccupancyRates(barbeariaId: string) {
+    await new Promise(resolve => setTimeout(resolve, 800))
+
+    return [
+      {
+        barbeiroId: 'barber-1',
+        nomeCompleto: 'Carlos Barbeiro',
+        avatar: '/avatars/carlos.jpg',
+        totalSlots: 16,
+        occupiedSlots: 12,
+        occupancyRate: 75.0,
+        revenue: 420.00
+      },
+      {
+        barbeiroId: 'barber-2',
+        nomeCompleto: 'Roberto Barbeiro',
+        avatar: '/avatars/roberto.jpg',
+        totalSlots: 16,
+        occupiedSlots: 14,
+        occupancyRate: 87.5,
+        revenue: 630.00
+      },
+      {
+        barbeiroId: 'barber-3',
+        nomeCompleto: 'André Costa',
+        totalSlots: 16,
+        occupiedSlots: 8,
+        occupancyRate: 50.0,
+        revenue: 280.00
+      }
+    ]
+  }
+
+  // Método para buscar estatísticas de receita
+  static async getRevenueStats(barbeariaId: string) {
+    await new Promise(resolve => setTimeout(resolve, 600))
+
+    const today = new Date()
+    const dailyRevenue = []
+    const weeklyRevenue = []
+
+    // Gerar dados dos últimos 30 dias
+    for (let i = 29; i >= 0; i--) {
+      const date = new Date(today)
+      date.setDate(date.getDate() - i)
+      
+      dailyRevenue.push({
+        date: date.toISOString().split('T')[0],
+        revenue: Math.random() * 800 + 200,
+        appointments: Math.floor(Math.random() * 20) + 5
+      })
+    }
+
+    // Gerar dados das últimas 8 semanas
+    for (let i = 7; i >= 0; i--) {
+      const weekStart = new Date(today)
+      weekStart.setDate(weekStart.getDate() - (i * 7))
+      
+      weeklyRevenue.push({
+        week: `Semana ${8 - i}`,
+        revenue: Math.random() * 4000 + 1500,
+        appointments: Math.floor(Math.random() * 100) + 50
+      })
+    }
+
+    return {
+      today: dailyRevenue[dailyRevenue.length - 1]?.revenue || 0,
+      week: weeklyRevenue[weeklyRevenue.length - 1]?.revenue || 0,
+      month: dailyRevenue.reduce((acc, day) => acc + day.revenue, 0),
+      daily: dailyRevenue,
+      weekly: weeklyRevenue
+    }
+  }
+
+  // Método para buscar alertas pendentes
+  static async getPendingAlerts(barbeariaId: string) {
+    await new Promise(resolve => setTimeout(resolve, 400))
+
+    return [
+      {
+        id: 'alert-1',
+        type: 'confirmation_needed' as const,
+        message: 'Agendamento de João Silva aguarda confirmação há 2 horas',
+        agendamentoId: 'apt-123',
+        priority: 'high' as const,
+        createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000)
+      },
+      {
+        id: 'alert-2',
+        type: 'payment_pending' as const,
+        message: 'Pagamento de Pedro Oliveira está pendente',
+        agendamentoId: 'apt-124',
+        priority: 'medium' as const,
+        createdAt: new Date(Date.now() - 30 * 60 * 1000)
+      },
+      {
+        id: 'alert-3',
+        type: 'conflict_detected' as const,
+        message: 'Conflito de horário detectado para Carlos Santos às 14:00',
+        agendamentoId: 'apt-125',
+        priority: 'high' as const,
+        createdAt: new Date(Date.now() - 15 * 60 * 1000)
+      }
+    ]
+  }
+
+  // Método para buscar estatísticas de agendamentos do dia
+  static async getTodayAppointmentStats(barbeariaId: string) {
+    await new Promise(resolve => setTimeout(resolve, 300))
+
+    return {
+      total: 18,
+      completed: 12,
+      canceled: 2,
+      pending: 4
+    }
+  }
 }

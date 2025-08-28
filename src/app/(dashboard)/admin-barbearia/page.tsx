@@ -10,6 +10,12 @@ import { BarbersOverview } from '@/domains/barbershops/components/admin-dashboar
 import { AppointmentCalendar } from '@/domains/appointments/components/calendar/AppointmentCalendar'
 import { PerformanceChart } from '@/shared/components/charts/PerformanceChart'
 import { 
+  BarberOccupancyWidget,
+  RevenueMetricsWidget,
+  PendingAlertsWidget
+} from '@/domains/appointments/components/stats'
+import { useRealTimeStats } from '@/domains/appointments/hooks/useRealTimeStats'
+import { 
   useAdminBarbeariaMetrics,
   useAdminBarbeariaAgendamentos,
   useAdminBarbeariaBarbeiros,
@@ -37,6 +43,21 @@ function AdminBarbeariaDashboard() {
   const { barbeiros, loading: loadingBarbeiros } = useAdminBarbeariaBarbeiros(barbeariaId)
   const { alertas, loading: loadingAlertas } = useAdminBarbeariaAlertas(barbeariaId)
   const { performance, loading: loadingPerformance } = useAdminBarbeariaPerformance(barbeariaId)
+  
+  // Estatísticas em tempo real
+  const {
+    barberOccupancy,
+    todayRevenue,
+    weekRevenue,
+    monthRevenue,
+    dailyRevenue,
+    weeklyRevenue,
+    pendingAlerts,
+    totalAppointmentsToday,
+    completedAppointmentsToday,
+    canceledAppointmentsToday,
+    isLoading: loadingStats
+  } = useRealTimeStats(barbeariaId)
 
   const handleViewAgendamentoDetails = (id: string) => {
     console.log('Ver detalhes do agendamento:', id)
@@ -53,12 +74,12 @@ function AdminBarbeariaDashboard() {
     { id: 'performance', nome: 'Performance', icone: Settings }
   ]
 
-  const alertasAlta = alertas.filter(a => a.prioridade === 'alta').length
+  const alertasAlta = pendingAlerts.filter(a => a.priority === 'high').length
 
   const headerActions = (
     <>
       {alertasAlta > 0 && (
-        <div className="flex items-center space-x-2 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 px-3 py-2 rounded-lg border border-red-200 dark:border-red-800">
+        <div className="flex items-center space-x-2 bg-red-500/20 text-red-400 px-3 py-2 rounded-lg border border-red-500">
           <AlertTriangle className="h-4 w-4" />
           <span className="text-sm font-medium">{alertasAlta} alertas importantes</span>
         </div>
@@ -77,7 +98,7 @@ function AdminBarbeariaDashboard() {
     >
       {activeTab === 'overview' && (
         <div className="space-y-6">
-          {/* Métricas */}
+          {/* Métricas originais */}
           {loadingMetricas ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
               {[...Array(6)].map((_, i) => (
@@ -92,7 +113,42 @@ function AdminBarbeariaDashboard() {
             <BarbershopMetrics metricas={metricas} />
           ) : null}
 
-          {/* Alertas Importantes */}
+          {/* Estatísticas em Tempo Real - Nova seção */}
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-semibold text-white">Estatísticas em Tempo Real</h2>
+              <div className="flex items-center space-x-2 text-sm text-gray-400">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <span>Atualização automática</span>
+              </div>
+            </div>
+
+            {/* Grid com ocupação e alertas */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <BarberOccupancyWidget
+                occupancyData={barberOccupancy}
+                isLoading={loadingStats}
+              />
+              <PendingAlertsWidget
+                alerts={pendingAlerts}
+                isLoading={loadingStats}
+                onDismissAlert={(alertId) => console.log('Dispensar alerta:', alertId)}
+                onViewAppointment={(agendamentoId) => console.log('Ver agendamento:', agendamentoId)}
+              />
+            </div>
+
+            {/* Métricas de receita */}
+            <RevenueMetricsWidget
+              todayRevenue={todayRevenue}
+              weekRevenue={weekRevenue}
+              monthRevenue={monthRevenue}
+              dailyRevenue={dailyRevenue}
+              weeklyRevenue={weeklyRevenue}
+              isLoading={loadingStats}
+            />
+          </div>
+
+          {/* Alertas Importantes originais */}
           {!loadingAlertas && alertas.length > 0 && (
             <div className="bg-theme-secondary rounded-lg shadow-sm border border-theme-primary">
               <div className="p-4 border-b border-theme-primary">
@@ -118,7 +174,7 @@ function AdminBarbeariaDashboard() {
             </div>
           )}
 
-          {/* Próximos Agendamentos */}
+          {/* Próximos Agendamentos e Performance originais */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="bg-theme-secondary rounded-lg shadow-sm border border-theme-primary">
               <div className="p-4 border-b border-theme-primary">
@@ -159,7 +215,7 @@ function AdminBarbeariaDashboard() {
               </div>
             </div>
 
-            {/* Performance Semanal */}
+            {/* Performance Semanal original */}
             <div className="bg-theme-secondary rounded-lg shadow-sm border border-theme-primary">
               <div className="p-4 border-b border-theme-primary">
                 <h2 className="text-lg font-semibold text-theme-primary">
@@ -181,6 +237,8 @@ function AdminBarbeariaDashboard() {
               </div>
             </div>
           </div>
+
+
         </div>
       )}
 
