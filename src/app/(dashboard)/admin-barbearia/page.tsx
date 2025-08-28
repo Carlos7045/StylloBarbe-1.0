@@ -12,7 +12,8 @@ import { PerformanceChart } from '@/shared/components/charts/PerformanceChart'
 import { 
   BarberOccupancyWidget,
   RevenueMetricsWidget,
-  PendingAlertsWidget
+  PendingAlertsWidget,
+  PerformanceChartsWidget
 } from '@/domains/appointments/components/stats'
 import { useRealTimeStats } from '@/domains/appointments/hooks/useRealTimeStats'
 import { 
@@ -215,30 +216,60 @@ function AdminBarbeariaDashboard() {
               </div>
             </div>
 
-            {/* Performance Semanal original */}
+            {/* Resumo Rápido */}
             <div className="bg-theme-secondary rounded-lg shadow-sm border border-theme-primary">
               <div className="p-4 border-b border-theme-primary">
                 <h2 className="text-lg font-semibold text-theme-primary">
-                  Performance da Semana
+                  Resumo do Dia
                 </h2>
               </div>
               <div className="p-4">
-                {loadingPerformance ? (
-                  <div className="h-48 bg-theme-tertiary rounded animate-pulse"></div>
+                {loadingStats ? (
+                  <div className="space-y-4">
+                    <div className="h-4 bg-theme-tertiary rounded animate-pulse"></div>
+                    <div className="h-4 bg-theme-tertiary rounded animate-pulse"></div>
+                    <div className="h-4 bg-theme-tertiary rounded animate-pulse"></div>
+                  </div>
                 ) : (
-                  <div className="h-48">
-                    <PerformanceChart data={performance.map(p => ({
-                      dia: p.periodo,
-                      agendamentos: p.agendamentos,
-                      receita: p.receita
-                    }))} />
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                      <span className="text-theme-secondary">Agendamentos Hoje:</span>
+                      <span className="font-semibold text-theme-primary">{totalAppointmentsToday}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-theme-secondary">Concluídos:</span>
+                      <span className="font-semibold text-green-600">{completedAppointmentsToday}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-theme-secondary">Taxa de Conclusão:</span>
+                      <span className="font-semibold text-theme-primary">
+                        {totalAppointmentsToday > 0 
+                          ? ((completedAppointmentsToday / totalAppointmentsToday) * 100).toFixed(1)
+                          : 0}%
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-theme-secondary">Receita Hoje:</span>
+                      <span className="font-semibold text-yellow-600">R$ {todayRevenue.toFixed(2)}</span>
+                    </div>
                   </div>
                 )}
               </div>
             </div>
           </div>
 
-
+          {/* Gráficos de Performance Detalhados - Nova seção */}
+          <div className="space-y-4">
+            <h2 className="text-xl font-semibold text-white">Análise Detalhada</h2>
+            <PerformanceChartsWidget
+              dailyRevenue={dailyRevenue}
+              weeklyRevenue={weeklyRevenue}
+              totalAppointmentsToday={totalAppointmentsToday}
+              completedAppointmentsToday={completedAppointmentsToday}
+              canceledAppointmentsToday={canceledAppointmentsToday}
+              isLoading={loadingStats}
+            />
+          </div>
         </div>
       )}
 
