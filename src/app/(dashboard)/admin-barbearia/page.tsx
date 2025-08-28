@@ -7,6 +7,7 @@ import { DashboardLayout } from '@/shared/components/layout'
 import { BarbershopMetrics } from '@/domains/barbershops/components/admin-dashboard/BarbershopMetrics'
 import { TodayAppointments } from '@/domains/barbershops/components/admin-dashboard/TodayAppointments'
 import { BarbersOverview } from '@/domains/barbershops/components/admin-dashboard/BarbersOverview'
+import { AppointmentCalendar } from '@/domains/appointments/components/calendar/AppointmentCalendar'
 import { PerformanceChart } from '@/shared/components/charts/PerformanceChart'
 import { 
   useAdminBarbeariaMetrics,
@@ -185,22 +186,7 @@ function AdminBarbeariaDashboard() {
 
       {activeTab === 'agendamentos' && (
         <div>
-          {loadingAgendamentos ? (
-            <div className="bg-theme-secondary rounded-lg shadow-sm border border-theme-primary p-6 animate-pulse">
-              <div className="h-6 bg-theme-tertiary rounded mb-4"></div>
-              <div className="space-y-4">
-                {[...Array(5)].map((_, i) => (
-                  <div key={i} className="h-24 bg-theme-tertiary rounded"></div>
-                ))}
-              </div>
-            </div>
-          ) : (
-            <TodayAppointments 
-              agendamentos={agendamentos}
-              onUpdateStatus={updateStatus}
-              onViewDetails={handleViewAgendamentoDetails}
-            />
-          )}
+          <AppointmentCalendar barbeariaId={barbeariaId} />
         </div>
       )}
 
